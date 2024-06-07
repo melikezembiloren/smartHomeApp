@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">AWOXapp</string>
+    <string name="myDevices">Cihazlarım</string>
+
+
+    <string name="cardView_kitchen">Mutfak</string>
+    <string name="cardView_bathroom">Temizlik Aletleri</string>
+    <string name="cardView_television">TV</string>
+    <string name="cardView_other">Diğer</string>
+
+
+    <string name="content_description_add_button">Add Device Button</string>
+    <string name="content_description_back_button">Back Button</string>
+    <string name="content_description_kitchen">photo of a modern kitchen for kitchen devices category</string>
+    <string name="content_description_bathroom">photo of a bathroom for cleaning devices category</string>
+    <string name="content_description_tv">photo of a room with a smart tv for tv category</string>
+    <string name="content_description_home">photo of a home for other devices category</string>
+
+
+    <string name="add_device">Cihaz Ekle</string>
+
+    <string name="awox_motto">Sizinleyiz, Teknolojinin İçindeyiz</string>
+    <string name="dont_you_have_an_account">Hesabın Yok Mu?</string>
+
+
+    <string name="hint_edit_text_email">Email</string>
+    <string name="hint_edit_text_password">Şifre</string>
+    <string name="hint_phone_number">(5__) ___ __ __</string>
+
+    <string name="button_forgot_password">Şifremi Unuttum</string>
+    <string name="button_login">GİRİŞ YAP</string>
+    <string name="button_register"> Kayıt Ol</string>
+
+    <string name="register_page_first_name">Ad</string>
+    <string name="register_page_middle_name">İkinci Ad</string>
+    <string name="register_page_surname">Soyad</string>
+    <string name="register_page_email">E-posta</string>
+    <string name="register_page_phone_number">Telefon</string>
+    <string name="register_page_password">Şifre</string>
+    <string name="register_page_confirm_password">Şifre(Tekrar)</string>
+
+    <string name="required">Gerekli*</string>
+
+
+
+
+
+
+</resources>
