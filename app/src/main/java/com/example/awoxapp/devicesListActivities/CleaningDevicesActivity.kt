@@ -2,6 +2,7 @@ package com.example.awoxapp.devicesListActivities
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -50,6 +51,10 @@ class CleaningDevicesActivity : AppCompatActivity() {
         listAdapter = ListAdapter(this, dataArrayList)
         mBinding.listView.adapter = listAdapter
         mBinding.listView.isClickable = true //xml'de cardview clickible false olacak
+
+    }
+
+    private fun addDeviceAlertDialog(){
 
     }
 

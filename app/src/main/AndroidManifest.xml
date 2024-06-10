@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AWOXapp"
         tools:targetApi="31">
+
         <activity
             android:name=".login.RegisterActivity"
             android:exported="false" />

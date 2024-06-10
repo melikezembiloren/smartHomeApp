@@ -39,10 +39,16 @@
     <string name="register_page_password">Şifre</string>
     <string name="register_page_confirm_password">Şifre(Tekrar)</string>
 
+
     <string name="required">Gerekli*</string>
 
-
-
+    <string name="add_device_alert_dialog_title">Cihaz Ekle</string>
+    <string name="add_device_alert_dialog_supporting_text">Cihazınıza Bir İsim Verin</string>
+    <string name="add_device_alert_dialog_positive_button">Kaydet</string>
+    <string name="add_device_alert_dialog_negative_button">İptal</string>
+    
+    
+    <string name="register_page_term_of_use_checkbox">Üyelik koşullarını ve kişisel verilerimin korunmasını kabul ediyorum.</string>
 
 
 
