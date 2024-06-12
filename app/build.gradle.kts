@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-parcelize")
+    kotlin("kapt")
+
 }
 
 android {
@@ -51,6 +54,8 @@ android {
 
 dependencies {
 
+    val room_version = "2.6.1"
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -63,4 +68,15 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+    // To use Kotlin annotation processing tool (kapt)
+    kapt("androidx.room:room-compiler:$room_version")
+
+
+}
+
+kapt {
+    correctErrorTypes = true
 }

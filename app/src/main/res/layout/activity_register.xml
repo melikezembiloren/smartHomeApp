@@ -251,19 +251,43 @@
 
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/checkBoxSms"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:layout_marginStart="25dp"
             android:textColor="@color/white"
+            android:textSize="12sp"
+            android:text="@string/register_page_commercial_permission_for_email" />
+
+        <CheckBox
+            android:id="@+id/checkBoxEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="25dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:text="@string/register_page_commercial_permission_for_sms" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="25dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
             android:text="@string/register_page_term_of_use_checkbox" />
+
+
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton"
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
             android:backgroundTint="@color/black_button"

@@ -49,7 +49,8 @@
     
     
     <string name="register_page_term_of_use_checkbox">Üyelik koşullarını ve kişisel verilerimin korunmasını kabul ediyorum.</string>
-
+    <string name="register_page_commercial_permission_for_sms">Kampanya, duyuru, bilgilendirmelerden sms ile haberdar olmak istiyorum.</string>
+    <string name="register_page_commercial_permission_for_email">Kampanya, duyuru, bilgilendirmelerden e-posta ile haberdar olmak istiyorum.</string>
 
 
 </resources>
