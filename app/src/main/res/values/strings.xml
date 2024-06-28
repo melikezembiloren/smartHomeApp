@@ -27,6 +27,8 @@
     <string name="hint_edit_text_password">Şifre</string>
     <string name="hint_phone_number">(5__) ___ __ __</string>
 
+
+
     <string name="button_forgot_password">Şifremi Unuttum</string>
     <string name="button_login">GİRİŞ YAP</string>
     <string name="button_register"> Kayıt Ol</string>

@@ -7,11 +7,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
+import com.example.awoxapp.Repository.repository.DevicesViewModel
 import com.example.awoxapp.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var vm : DevicesViewModel
     private lateinit var mBinding: ActivityMainBinding
 
     private fun initBinding() {
