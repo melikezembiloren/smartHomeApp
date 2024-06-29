@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.room.Room
+import com.example.awoxapp.IdGenerator
 import com.example.awoxapp.MainActivity
 import com.example.awoxapp.R
 import com.example.awoxapp.Repository.database.DevicesDataBase
@@ -46,7 +47,7 @@ class KitchenDevicesActivity : AppCompatActivity() {
 
 
         Thread {
-            val user = db.devicesDAO().saveDevice(newDevice)
+            db.devicesDAO().saveDevice(newDevice)
             // Veritabanı işlemini gerçekleştirir ve sonucu iş parçacığına döner
         }.start()
 
@@ -66,6 +67,8 @@ class KitchenDevicesActivity : AppCompatActivity() {
 
                 val addDeviceEditText = dialogLayout.findViewById<EditText>(R.id.edit_text_add_device_alertDialog)
                 val savedDeviceName = addDeviceEditText.text.toString()
+
+                //val idOfDevice = IdGenerator.generateId(selectedItemType)
 
                 val newDevice : Devices = Devices(idOfSavedDevice = 0, selectedItemType, selectedItemImage, savedDeviceName )
 

@@ -14,8 +14,8 @@
     tools:context=".MainActivity">
 
 
-
     <TextView
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppinssemibold"
@@ -44,6 +44,24 @@
         app:layout_constraintVertical_bias="0.046">
 
     </ImageButton>
+
+    <ListView
+        android:id="@+id/listMain"
+        android:layout_width="394dp"
+        android:layout_height="667dp"
+        android:layout_marginTop="23dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0.00001sp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintVertical_bias="0.0"
+        tools:listitem="@layout/list_item">
+
+    </ListView>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
