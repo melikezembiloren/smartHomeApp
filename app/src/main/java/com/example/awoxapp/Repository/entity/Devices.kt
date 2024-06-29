@@ -8,10 +8,10 @@ import java.io.Serializable
 
 @Entity(tableName = "savedDevices")
 data class Devices(
-    @PrimaryKey(autoGenerate = true)
-    //@PrimaryKey
+    //@PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @ColumnInfo(name = "saved_device_ID")
-    val idOfSavedDevice: Int = 0,//since it is unique it is kept as primary key with @PrimaryKey annotation and it automatically increased  with "autoGenerate = true"
+    val idOfSavedDevice: String,//since it is unique it is kept as primary key with @PrimaryKey annotation and it automatically increased  with "autoGenerate = true"
 
     @ColumnInfo(name = "saved_device_type")
     val typeOfSavedDevice: String,

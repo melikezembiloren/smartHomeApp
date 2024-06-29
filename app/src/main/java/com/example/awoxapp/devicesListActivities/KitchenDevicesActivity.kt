@@ -68,9 +68,28 @@ class KitchenDevicesActivity : AppCompatActivity() {
                 val addDeviceEditText = dialogLayout.findViewById<EditText>(R.id.edit_text_add_device_alertDialog)
                 val savedDeviceName = addDeviceEditText.text.toString()
 
-                //val idOfDevice = IdGenerator.generateId(selectedItemType)
 
-                val newDevice : Devices = Devices(idOfSavedDevice = 0, selectedItemType, selectedItemImage, savedDeviceName )
+                var tip = ""
+                when(selectedItemType){
+                    "Kahve Makinesi" -> tip  = "cm"
+
+                    "Airfryer" -> tip  = "af"
+
+                    "Ocak" -> tip  = "ct"
+
+                    "Fırın" -> tip = "ov"
+
+                    "Davlumbaz" -> tip = "ch"
+
+                    "Bulaşık Makinesi" -> tip  = "dw"
+
+                }
+
+                val deviceId = IdGenerator.generateId(tip)
+
+
+
+                val newDevice : Devices = Devices(deviceId, selectedItemType, selectedItemImage, savedDeviceName )
 
                 if(savedDeviceName.isNotEmpty()){
 
