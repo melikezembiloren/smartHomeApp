@@ -1,16 +1,12 @@
 package com.example.awoxapp.devicesListActivities
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import com.example.awoxapp.R
 import com.example.awoxapp.data.DevicesListData
 import com.example.awoxapp.databinding.ActivityCleaningDevicesBinding
-import com.example.awoxapp.listAdapter.ListAdapter
+import com.example.awoxapp.adapter.ListAdapter
 
 class CleaningDevicesActivity : AppCompatActivity() {
 

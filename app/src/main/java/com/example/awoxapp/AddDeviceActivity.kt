@@ -2,19 +2,13 @@ package com.example.awoxapp
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
-import com.example.awoxapp.data.DevicesListData
 import com.example.awoxapp.databinding.ActivityAddDeviceBinding
-import com.example.awoxapp.databinding.ActivityTvBinding
 import com.example.awoxapp.devicesListActivities.CleaningDevicesActivity
 import com.example.awoxapp.devicesListActivities.KitchenDevicesActivity
 import com.example.awoxapp.devicesListActivities.OtherDevicesActivity
 import com.example.awoxapp.devicesListActivities.TelevisionActivity
-import com.example.awoxapp.listAdapter.ListAdapter
 
 class AddDeviceActivity : AppCompatActivity() {
 

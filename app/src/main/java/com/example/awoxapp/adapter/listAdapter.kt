@@ -1,4 +1,4 @@
-package com.example.awoxapp.listAdapter
+package com.example.awoxapp.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,9 +10,9 @@ import android.widget.TextView
 import com.example.awoxapp.R
 import com.example.awoxapp.data.DevicesListData
 
-class ListAdapter(context: Context, dataArrayList: ArrayList<DevicesListData?>?):
-    ArrayAdapter<DevicesListData?>(context,
-        0 , dataArrayList!!){
+class ListAdapter(context: Context,  dataArrayList: ArrayList<DevicesListData?>?):
+    ArrayAdapter<DevicesListData?>
+        (context, 0 , dataArrayList!!){
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 

@@ -2,16 +2,12 @@ package com.example.awoxapp.devicesListActivities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import com.example.awoxapp.R
 import com.example.awoxapp.data.DevicesListData
 import com.example.awoxapp.databinding.ActivityOtherDevicesBinding
-import com.example.awoxapp.listAdapter.ListAdapter
+import com.example.awoxapp.adapter.ListAdapter
 import com.example.awoxapp.login.LoginActivity
 import com.example.awoxapp.login.RegisterActivity
 

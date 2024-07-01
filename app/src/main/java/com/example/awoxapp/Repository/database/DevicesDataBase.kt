@@ -22,9 +22,9 @@ abstract class DevicesDataBase: RoomDatabase() {
 
 
 
-        val migrationIntToString: Migration = object : Migration(1, 2) {
+        val migration: Migration = object : Migration(1, 2) {
             override fun migrate(db: SupportSQLiteDatabase) {
-                // Geçici bir tablo oluşturun
+                // Step:1 creating a temporary table
                 db.execSQL("CREATE TABLE savedDevices_temp (" +
                         "idOfSavedDevice TEXT PRIMARY KEY NOT NULL, " +
                         "typeOfSavedDevice TEXT, " +
@@ -57,7 +57,7 @@ abstract class DevicesDataBase: RoomDatabase() {
                     "devices_db"
 
                 )
-                    .addMigrations(migrationIntToString)
+                    .addMigrations(migration)
                     .build()
 
                 INSTANCE = instance

@@ -21,7 +21,7 @@ interface DevicesDAO{
 
     @Query("SELECT EXISTS(SELECT * FROM savedDevices WHERE saved_device_name LIKE :deviceName)")
     fun findByDeviceName(deviceName: String?): Boolean
-    @Query("SELECT * FROM savedDevices ORDER BY saved_device_ID DESC" )
+    @Query("SELECT * FROM savedDevices " )
     fun getAllAddedDevices(): List<Devices>
 
 

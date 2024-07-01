@@ -10,11 +10,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.room.Room
 import android.widget.ListView
 import com.example.awoxapp.Repository.database.DevicesDataBase
-import com.example.awoxapp.Repository.entity.Devices
-import com.example.awoxapp.Repository.repository.DevicesViewModel
 import com.example.awoxapp.data.DevicesListData
 import com.example.awoxapp.databinding.ActivityMainBinding
-import com.example.awoxapp.listAdapter.ListAdapter
+import com.example.awoxapp.adapter.ListAdapter
 
 
 class MainActivity : AppCompatActivity() {
@@ -23,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var listData: DevicesListData
     private lateinit var listAdapter: ListAdapter
     private lateinit var listView: ListView
+    
 
     var dataArrayList = ArrayList<DevicesListData?>()
 
@@ -103,13 +102,19 @@ class MainActivity : AppCompatActivity() {
     {
         initBinding()
         addDeviceButtonClicked()
-        list()
+
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         initialize()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        dataArrayList.clear()
+        list()
     }
 
 

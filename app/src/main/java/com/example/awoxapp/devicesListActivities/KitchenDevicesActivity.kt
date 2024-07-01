@@ -1,6 +1,5 @@
 package com.example.awoxapp.devicesListActivities
 
-import android.bluetooth.BluetoothClass.Device
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
@@ -9,14 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.room.Room
 import com.example.awoxapp.IdGenerator
-import com.example.awoxapp.MainActivity
 import com.example.awoxapp.R
 import com.example.awoxapp.Repository.database.DevicesDataBase
 import com.example.awoxapp.Repository.entity.Devices
-import com.example.awoxapp.Repository.repository.DevicesViewModel
 import com.example.awoxapp.data.DevicesListData
 import com.example.awoxapp.databinding.ActivityKitchenDevicesBinding
-import com.example.awoxapp.listAdapter.ListAdapter
+import com.example.awoxapp.adapter.ListAdapter
 import com.google.android.material.snackbar.Snackbar
 
 class KitchenDevicesActivity : AppCompatActivity() {
