@@ -67,7 +67,8 @@ class MainActivity : AppCompatActivity() {
 
 
                 Toast.makeText(this, mRecyclerView.adapter?.itemCount.toString(), Toast.LENGTH_LONG).show()
-                rvAdapter.notifyDataSetChanged()
+                rvAdapter.notifyDataSetChanged()//data setteki degisikligi recyclerviewa bildirmek icin
+                
             }
         }.start()
 
