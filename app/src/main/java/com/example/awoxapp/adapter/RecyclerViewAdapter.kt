@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.awoxapp.R
 import com.example.awoxapp.data.DevicesListData
 
-class RecyclerViewAdapter(private val context: Context, private val dataItemList: List<DevicesListData>):
+class RecyclerViewAdapter(private val context: Context, private val dataItemList: ArrayList<DevicesListData?>):
 RecyclerView.Adapter<RecyclerViewAdapter.DataListViewHolder>() //böylece adapter özelliğini alan bir sınıf oldu.
 {
     inner class DataListViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
@@ -36,10 +36,14 @@ RecyclerView.Adapter<RecyclerViewAdapter.DataListViewHolder>() //böylece adapte
     override fun onBindViewHolder(holder: DataListViewHolder, position: Int) { //hangi datanın hangi görsel nesneye aktarılacağı belirlit
 
         val deviceImage = dataItemList[position]
-        holder.listImage.setImageResource(deviceImage.image)
+        if (deviceImage != null) {
+            holder.listImage.setImageResource(deviceImage.image)
+        }
 
         val deviceName = dataItemList[position]
-        holder.listName.text = deviceName.name
+        if (deviceName != null) {
+            holder.listName.text = deviceName.name
+        }
 
 
         /**val listData = dataItemList[position]

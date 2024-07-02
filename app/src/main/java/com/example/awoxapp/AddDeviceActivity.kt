@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
 import com.example.awoxapp.databinding.ActivityAddDeviceBinding
 import com.example.awoxapp.devicesListActivities.CleaningDevicesActivity
 import com.example.awoxapp.devicesListActivities.KitchenDevicesActivity
@@ -13,6 +14,8 @@ import com.example.awoxapp.devicesListActivities.TelevisionActivity
 class AddDeviceActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityAddDeviceBinding
+
+
 
 
     private fun initBinding(){
@@ -57,15 +60,44 @@ class AddDeviceActivity : AppCompatActivity() {
 
     }
 
+    private fun glideOperations(){
+        Glide
+            .with(this@AddDeviceActivity)
+            .load(R.drawable.add_device_categories_kitchen)
+            .centerCrop()
+            .into(mBinding.imageViewAddDeviceKitchen)
+
+        Glide
+            .with(this@AddDeviceActivity)
+            .load(R.drawable.add_device_categories_bathroom)
+            .centerCrop()
+            .into(mBinding.imageViewAddDeviceBathroom)
+
+        Glide
+            .with(this@AddDeviceActivity)
+            .load(R.drawable.add_device_categories_tvphoto)
+            .centerCrop()
+            .into(mBinding.imageViewAddDeviceTv)
+
+        Glide
+            .with(this@AddDeviceActivity)
+            .load(R.drawable.add_device_categories_home)
+            .centerCrop()
+            .into(mBinding.imageViewAddDeviceHome)
+    }
+
 
     private fun initialize(){
         initBinding()
+        glideOperations()
         backButtonClicked()
         initNavigateDevicesMenu()
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_device)
+
+
 
         initialize()
 

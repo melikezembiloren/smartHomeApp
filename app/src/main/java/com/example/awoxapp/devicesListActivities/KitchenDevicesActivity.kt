@@ -21,9 +21,15 @@ class KitchenDevicesActivity : AppCompatActivity() {
     private lateinit var mBinding : ActivityKitchenDevicesBinding
     private lateinit var listData: DevicesListData
     private lateinit var listAdapter: ListAdapter
+    private lateinit var db : DevicesDataBase
 
     private var dataArrayList = ArrayList<DevicesListData?>()
 
+
+    private fun initDB()
+    {
+        db = DevicesDataBase.getDeviceDataBase(this)
+    }
 
     private fun initBinding(){
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_kitchen_devices)
@@ -36,12 +42,6 @@ class KitchenDevicesActivity : AppCompatActivity() {
     }
 
     private fun insertDataToDataBase(newDevice: Devices){
-
-        val db = Room.databaseBuilder(
-            this,
-            DevicesDataBase::class.java, "devices-database"
-        ).build()
-
 
         Thread {
             db.devicesDAO().saveDevice(newDevice)
@@ -150,6 +150,7 @@ class KitchenDevicesActivity : AppCompatActivity() {
     private fun initialize()
     {
         initBinding()
+        initDB()
         backButtonClicked()
         list()
         initItemClicked()

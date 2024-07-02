@@ -9,59 +9,69 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
 import androidx.room.Room
 import android.widget.ListView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.awoxapp.Repository.database.DevicesDataBase
 import com.example.awoxapp.data.DevicesListData
 import com.example.awoxapp.databinding.ActivityMainBinding
 import com.example.awoxapp.adapter.ListAdapter
+import com.example.awoxapp.adapter.RecyclerViewAdapter
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityMainBinding
-    private lateinit var listData: DevicesListData
-    private lateinit var listAdapter: ListAdapter
-    private lateinit var listView: ListView
-    
+    private lateinit var mRecyclerView: RecyclerView
+    private lateinit var rvAdapter: RecyclerViewAdapter
+    private var dataArrayList = ArrayList<DevicesListData?>()
+    private lateinit var db : DevicesDataBase
 
-    var dataArrayList = ArrayList<DevicesListData?>()
-
-    private fun initBinding() {
-
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        listView = mBinding.listMain
-
+    private fun initDB()
+    {
+        db = DevicesDataBase.getDeviceDataBase(this)
     }
 
-    private fun list() {
-        // Veritabanı bağlantısını oluşturun
-        var db = Room.databaseBuilder(
-            applicationContext,
-            DevicesDataBase::class.java, "devices-database"
-        ).build()
+    private fun initBinding(){
 
-        // Veritabanı DAO nesnesini oluşturun
-        var devicesDao = db.devicesDAO()
+        mBinding = DataBindingUtil.setContentView(this@MainActivity, R.layout.activity_main)
+    }
 
-        // Tüm eklenmiş cihazları almak için Room işlemlerini başlatın
-        Thread {
+
+    private fun initRecyclerView(){
+
+        mRecyclerView = mBinding.recyclerView
+        mRecyclerView.setHasFixedSize(true)
+        mRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        rvAdapter = RecyclerViewAdapter(this, dataArrayList)
+        mRecyclerView.adapter = rvAdapter
+    }
+
+    private fun list(){
+
+        dataArrayList.clear()
+
+        val devicesDao = db.devicesDAO() // dao nesnesi olusturuldu
+
+        Thread { //tum eklenmis cihazlari listelemek icin room islemleri baslatilir
             val devicesList = devicesDao.getAllAddedDevices()
 
-            // UI işlemlerini UI thread'inde yapmak için runOnUiThread kullanın
-            runOnUiThread {
 
-                // devicesList'teki her bir Devices nesnesini DevicesListData'ya dönüştürün ve dataArrayList'e ekleyin
-                for (device in devicesList) {
-                    val listData = DevicesListData(device.nameOfSavedDevice, device.imageIdOfSavedDevice ) // Resim kaynağına gerçek bir kaynak eklemelisiniz
+            runOnUiThread {//ui islemleri
+
+                for (device in devicesList) {// devicesList'teki her bir Devices nesnesini DevicesListData'ya dönüştürün ve dataArrayList'e ekleyin
+                    val listData = DevicesListData(device.nameOfSavedDevice, device.imageIdOfSavedDevice )
                     dataArrayList.add(listData)
                 }
 
-                // ListAdapter'ı güncelleyerek ListView'e verileri bağlayın
-                listAdapter = ListAdapter(this, dataArrayList)
-                listView.adapter = listAdapter
+
+
+                Toast.makeText(this, mRecyclerView.adapter?.itemCount.toString(), Toast.LENGTH_LONG).show()
+                rvAdapter.notifyDataSetChanged()
             }
         }.start()
-    }
 
+    }
 
     private fun showAddDevicePopUpMenu(){
         val popup = PopupMenu(this, mBinding.addDeviceButton)
@@ -69,14 +79,14 @@ class MainActivity : AppCompatActivity() {
         popup.menuInflater.inflate(R.menu.add_device_menu_button, popup.menu)
         popup.setOnMenuItemClickListener { item: MenuItem? ->
 
-                when(item!!.itemId) {
+            when(item!!.itemId) {
                 R.id.header1 -> { navigateDeviceCategoriesPage() }
 
                 R.id.header2 -> {
                     Toast.makeText(this@MainActivity, item.title, Toast.LENGTH_SHORT).show()
                 }
 
-                }
+            }
 
             true
 
@@ -101,21 +111,28 @@ class MainActivity : AppCompatActivity() {
     private fun initialize()
     {
         initBinding()
+        initDB()
+        initRecyclerView()
         addDeviceButtonClicked()
+
 
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+       // setContentView(R.layout.activity_main)
+
 
         initialize()
     }
 
     override fun onStart() {
         super.onStart()
-        dataArrayList.clear()
+
         list()
+
+    }
+
     }
 
 
-}
+
