@@ -3,6 +3,7 @@ package com.example.awoxapp.devicesListActivities
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -14,6 +15,7 @@ import com.example.awoxapp.Repository.entity.Devices
 import com.example.awoxapp.data.DevicesListData
 import com.example.awoxapp.databinding.ActivityKitchenDevicesBinding
 import com.example.awoxapp.adapter.ListAdapter
+import com.example.awoxapp.data.DeviceList
 import com.google.android.material.snackbar.Snackbar
 
 class KitchenDevicesActivity : AppCompatActivity() {
@@ -24,6 +26,7 @@ class KitchenDevicesActivity : AppCompatActivity() {
     private lateinit var db : DevicesDataBase
 
     private var dataArrayList = ArrayList<DevicesListData?>()
+
 
 
     private fun initDB()
@@ -83,6 +86,7 @@ class KitchenDevicesActivity : AppCompatActivity() {
                 }
 
                 val deviceId = IdGenerator.generateId(tip)
+                Toast.makeText(this, "generatedId: ${deviceId}", Toast.LENGTH_SHORT).show()
 
 
 
@@ -91,6 +95,7 @@ class KitchenDevicesActivity : AppCompatActivity() {
                 if(savedDeviceName.isNotEmpty()){
 
                     insertDataToDataBase(newDevice)
+                    DeviceList.deviceObjectList.add(newDevice)
 
                 }
                 else {

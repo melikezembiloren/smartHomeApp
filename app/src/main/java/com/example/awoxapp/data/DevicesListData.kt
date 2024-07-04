@@ -4,4 +4,4 @@ data class DevicesListData(
     var name: String,
     var image: Int
 
-) { }
+)

@@ -2,21 +2,19 @@ package com.example.awoxapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
-import androidx.room.Room
-import android.widget.ListView
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.awoxapp.Repository.database.DevicesDataBase
-import com.example.awoxapp.data.DevicesListData
-import com.example.awoxapp.databinding.ActivityMainBinding
-import com.example.awoxapp.adapter.ListAdapter
+import com.example.awoxapp.Repository.entity.Devices
 import com.example.awoxapp.adapter.RecyclerViewAdapter
+import com.example.awoxapp.data.DeviceList
+import com.example.awoxapp.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
@@ -24,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var rvAdapter: RecyclerViewAdapter
-    private var dataArrayList = ArrayList<DevicesListData?>()
+
     private lateinit var db : DevicesDataBase
 
     private fun initDB()
@@ -43,33 +41,53 @@ class MainActivity : AppCompatActivity() {
         mRecyclerView = mBinding.recyclerView
         mRecyclerView.setHasFixedSize(true)
         mRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        rvAdapter = RecyclerViewAdapter(this, dataArrayList)
+        rvAdapter = RecyclerViewAdapter(this, DeviceList.deviceObjectList)
         mRecyclerView.adapter = rvAdapter
     }
 
     private fun list(){
-
-        dataArrayList.clear()
-
         val devicesDao = db.devicesDAO() // dao nesnesi olusturuldu
+        DeviceList.deviceObjectList.clear()
+        IdGenerator.idMap.clear()
+        val t = Thread { //tum eklenmis cihazlari listelemek icin room islemleri baslatilir
+            DeviceList.deviceObjectList.addAll( devicesDao.getAllAddedDevices())
 
-        Thread { //tum eklenmis cihazlari listelemek icin room islemleri baslatilir
-            val devicesList = devicesDao.getAllAddedDevices()
 
 
-            runOnUiThread {//ui islemleri
+            Log.d("Main Activity", "in thread")
 
-                for (device in devicesList) {// devicesList'teki her bir Devices nesnesini DevicesListData'ya dönüştürün ve dataArrayList'e ekleyin
-                    val listData = DevicesListData(device.nameOfSavedDevice, device.imageIdOfSavedDevice )
-                    dataArrayList.add(listData)
+            runOnUiThread{
+                Log.d("Main Activity", "outside thread")
+
+
+
+                Toast.makeText(this, mRecyclerView.adapter?.itemCount.toString(), Toast.LENGTH_SHORT).show()
+               // Toast.makeText(this, "size :${DeviceList.deviceObjectList.size}", Toast.LENGTH_SHORT).show()
+                for (device in DeviceList.deviceObjectList){
+                    Log.d("Main activity", "ID generated: ${device.idOfSavedDevice}")
+
+                    var tip = ""
+                    when(device.typeOfSavedDevice){
+                        "Kahve Makinesi" -> tip  = "cm"
+
+                        "Airfryer" -> tip  = "af"
+
+                        "Ocak" -> tip  = "ct"
+
+                        "Fırın" -> tip = "ov"
+
+                        "Davlumbaz" -> tip = "ch"
+
+                        "Bulaşık Makinesi" -> tip  = "dw"
+
+                    }
+                    IdGenerator.generateId(tip)
                 }
-
-
-
-                Toast.makeText(this, mRecyclerView.adapter?.itemCount.toString(), Toast.LENGTH_LONG).show()
                 rvAdapter.notifyDataSetChanged()
             }
-        }.start()
+        }
+
+        t.start()
 
     }
 
@@ -114,8 +132,6 @@ class MainActivity : AppCompatActivity() {
         initDB()
         initRecyclerView()
         addDeviceButtonClicked()
-
-
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -126,10 +142,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onStart() {
-        super.onStart()
-
         list()
-
+        super.onStart()
     }
 
     }

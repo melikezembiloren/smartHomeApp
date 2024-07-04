@@ -6,14 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.awoxapp.R
-import com.example.awoxapp.data.DevicesListData
+import com.example.awoxapp.Repository.entity.Devices
 
-class RecyclerViewAdapter(private val context: Context, private val dataItemList: ArrayList<DevicesListData?>):
+class RecyclerViewAdapter(private val context: Context, private val dataItemList: ArrayList<Devices>):
 RecyclerView.Adapter<RecyclerViewAdapter.DataListViewHolder>() //böylece adapter özelliğini alan bir sınıf oldu.
 {
     inner class DataListViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
@@ -37,12 +34,12 @@ RecyclerView.Adapter<RecyclerViewAdapter.DataListViewHolder>() //böylece adapte
 
         val deviceImage = dataItemList[position]
         if (deviceImage != null) {
-            holder.listImage.setImageResource(deviceImage.image)
+            holder.listImage.setImageResource(deviceImage.imageIdOfSavedDevice)
         }
 
         val deviceName = dataItemList[position]
         if (deviceName != null) {
-            holder.listName.text = deviceName.name
+            holder.listName.text = deviceName.nameOfSavedDevice
         }
 
 
