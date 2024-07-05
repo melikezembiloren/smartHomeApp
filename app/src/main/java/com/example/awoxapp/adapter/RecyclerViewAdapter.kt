@@ -17,7 +17,19 @@ import com.example.awoxapp.Repository.entity.Devices
 class RecyclerViewAdapter(private val context: Context, private val dataItemList: ArrayList<Devices>):
 RecyclerView.Adapter<RecyclerViewAdapter.DataListViewHolder>() //böylece adapter özelliğini alan bir sınıf oldu.
 {
-    private var onPopMenuClickListener:  OnPopUpMenuClickListener? = null
+
+    private var itemClickListener: OnPopUpMenuItemClickListener? = null
+
+    fun setOnPopUpMenuItemClickListener(listener: OnPopUpMenuItemClickListener) {
+        itemClickListener = listener
+    }
+
+
+    interface OnPopUpMenuItemClickListener {
+        fun onMenuItemClicked(position: Int)
+    }
+
+    /**private var onPopMenuClickListener:  OnPopUpMenuClickListener? = null
 
 
 
@@ -29,7 +41,7 @@ RecyclerView.Adapter<RecyclerViewAdapter.DataListViewHolder>() //böylece adapte
     interface OnPopUpMenuClickListener{
         fun onPopUpMenuClicked(position: Int)
 
-    }
+    }**/
 
 
 
@@ -63,7 +75,34 @@ RecyclerView.Adapter<RecyclerViewAdapter.DataListViewHolder>() //böylece adapte
             holder.listName.text = deviceName.nameOfSavedDevice
         }
 
-        val popupMenu = PopupMenu(context, holder.verticalDots)
+
+
+        holder.verticalDots.setOnClickListener {
+            val popupMenu = PopupMenu(context, holder.verticalDots)
+            popupMenu.menuInflater.inflate(R.menu.saved_device_popup, popupMenu.menu)
+
+            popupMenu.setOnMenuItemClickListener { item: MenuItem? ->
+
+                when (item!!.itemId) {
+                    R.id.header1 -> {
+                        //pozisyonu bildirmek icin
+                        itemClickListener?.onMenuItemClicked(position)
+                    }
+
+                    R.id.header2 -> {
+                        itemClickListener?.onMenuItemClicked(position)
+                    }
+
+                }
+
+                true
+            }
+
+            popupMenu.show()
+        }
+    }
+
+   /**     val popupMenu = PopupMenu(context, holder.verticalDots)
         popupMenu.setOnMenuItemClickListener { position ->
             setOnPopUpClickListener{
                 onPopMenuClickListener!!.onPopUpMenuClicked(position)
@@ -82,8 +121,8 @@ RecyclerView.Adapter<RecyclerViewAdapter.DataListViewHolder>() //böylece adapte
             popupMenu.show()
         }
 
-         */
-    }
+         */**/
+
 
         /**val listData = dataItemList[position]
         listData?.let {
