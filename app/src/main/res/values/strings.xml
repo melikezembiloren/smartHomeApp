@@ -54,5 +54,9 @@
     <string name="register_page_commercial_permission_for_sms">Kampanya, duyuru, bilgilendirmelerden sms ile haberdar olmak istiyorum.</string>
     <string name="register_page_commercial_permission_for_email">Kampanya, duyuru, bilgilendirmelerden e-posta ile haberdar olmak istiyorum.</string>
 
+    <string name="saved_devices_popup_delete_device">Cihazı Sil</string>
+    <string name="saved_devices_popup_settings">Ayarlar</string>
+
+
 
 </resources>
