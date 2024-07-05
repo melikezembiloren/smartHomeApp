@@ -15,6 +15,7 @@
     <string name="content_description_bathroom">photo of a bathroom for cleaning devices category</string>
     <string name="content_description_tv">photo of a room with a smart tv for tv category</string>
     <string name="content_description_home">photo of a home for other devices category</string>
+    <string name="content_description_vertical_dots">settings of saved devices</string>
 
 
     <string name="add_device">Cihaz Ekle</string>
@@ -26,7 +27,6 @@
     <string name="hint_edit_text_email">Email</string>
     <string name="hint_edit_text_password">Şifre</string>
     <string name="hint_phone_number">(5__) ___ __ __</string>
-
 
 
     <string name="button_forgot_password">Şifremi Unuttum</string>
@@ -48,15 +48,14 @@
     <string name="add_device_alert_dialog_supporting_text">Cihazınıza Bir İsim Verin</string>
     <string name="add_device_alert_dialog_positive_button">Kaydet</string>
     <string name="add_device_alert_dialog_negative_button">İptal</string>
-    
-    
+
+
     <string name="register_page_term_of_use_checkbox">Üyelik koşullarını ve kişisel verilerimin korunmasını kabul ediyorum.</string>
     <string name="register_page_commercial_permission_for_sms">Kampanya, duyuru, bilgilendirmelerden sms ile haberdar olmak istiyorum.</string>
     <string name="register_page_commercial_permission_for_email">Kampanya, duyuru, bilgilendirmelerden e-posta ile haberdar olmak istiyorum.</string>
 
     <string name="saved_devices_popup_delete_device">Cihazı Sil</string>
     <string name="saved_devices_popup_settings">Ayarlar</string>
-
 
 
 </resources>

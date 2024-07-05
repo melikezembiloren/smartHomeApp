@@ -38,30 +38,66 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/listImage"
-                android:layout_width="54dp"
-                android:layout_height="51dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                app:cardCornerRadius="15dp"
-                app:cardElevation="5dp"
-                app:srcCompat="@drawable/devices_list_airfryer">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            </com.google.android.material.imageview.ShapeableImageView>
 
-            <TextView
-                android:id="@+id/listName"
-                android:layout_width="335dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="100dp"
-                android:text="Refrigerators"
-                android:textAlignment="viewStart"
-                android:textSize="20sp">
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/listImage"
+                    android:layout_width="54dp"
+                    android:layout_height="51dp"
+                    android:layout_marginStart="20dp"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/addDeviceButton"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.217"
+                    app:srcCompat="@drawable/devices_list_airfryer">
 
-            </TextView>
+                </com.google.android.material.imageview.ShapeableImageView>
+
+                <TextView
+                    android:id="@+id/listName"
+                    android:layout_width="125dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="25dp"
+                    android:fontFamily="@font/poppinssemibold"
+                    android:text="@string/app_name"
+                    android:textAlignment="viewStart"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.778">
+
+                </TextView>
+
+                <ImageButton
+                    android:id="@+id/image_Button_three_dots_list_item_of_main"
+                    android:layout_width="14dp"
+                    android:layout_height="33dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginBottom="25dp"
+                    android:background="?android:selectableItemBackground"
+                    android:contentDescription="@string/content_description_vertical_dots"
+                    android:src="@drawable/dots_vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/listImage"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.19">
+
+                </ImageButton>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
 
