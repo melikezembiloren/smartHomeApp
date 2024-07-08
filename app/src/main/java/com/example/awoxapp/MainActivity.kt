@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
@@ -11,7 +12,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.awoxapp.Repository.database.DevicesDataBase
-import com.example.awoxapp.Repository.entity.Devices
 import com.example.awoxapp.adapter.RecyclerViewAdapter
 import com.example.awoxapp.data.DeviceList
 import com.example.awoxapp.databinding.ActivityMainBinding
@@ -36,6 +36,10 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
+
+
+
     private fun initRecyclerView(){
 
         mRecyclerView = mBinding.recyclerView
@@ -43,7 +47,53 @@ class MainActivity : AppCompatActivity() {
         mRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         rvAdapter = RecyclerViewAdapter(this, DeviceList.deviceObjectList)
         mRecyclerView.adapter = rvAdapter
+
+
+        rvAdapter.onVerticalDotsClickListener= {position: Int, item: View ->  popUpOperations(position,item)  }
+
+        /*
+        rvAdapter.setOnVerticalDotsClickListener( object : RecyclerViewAdapter.OnPopUpClickListener{
+            override fun onVerticalDotsClicked(position: Int, item: View) {
+                Toast.makeText(this@MainActivity, "cghdfg", Toast.LENGTH_SHORT).show()
+
+                popUpOperations(position,item)
+
+
+            }
+        }
+        )
+
+         */
     }
+
+    private fun popUpOperations(position: Int, item:View)
+    {
+        val popupMenu = android.widget.PopupMenu(this@MainActivity, item)
+        popupMenu.menuInflater.inflate(R.menu.saved_device_popup, popupMenu.menu)
+        popupMenu.show()
+
+        popupMenu.setOnMenuItemClickListener { menuItem ->
+            when(menuItem.itemId){
+                R.id.header1 ->{
+                    DeviceList.deviceObjectList.removeAt(position);
+
+                    val device = rvAdapter.dataItemList[position]
+
+                }
+                R.id.header2 -> Toast.makeText(this@MainActivity, "ayarlar", Toast.LENGTH_SHORT).show()
+            }
+
+            rvAdapter.notifyDataSetChanged()
+
+            true
+
+        }
+    }
+
+
+
+
+
 
     private fun list(){
         val devicesDao = db.devicesDAO() // dao nesnesi olusturuldu

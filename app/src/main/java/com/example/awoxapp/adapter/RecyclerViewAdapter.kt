@@ -2,37 +2,36 @@ package com.example.awoxapp.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.awoxapp.R
 import com.example.awoxapp.Repository.entity.Devices
 
-class RecyclerViewAdapter(private val context: Context, private val dataItemList: ArrayList<Devices>):
+class RecyclerViewAdapter(private val context: Context, val dataItemList: ArrayList<Devices>):
 RecyclerView.Adapter<RecyclerViewAdapter.DataListViewHolder>() //böylece adapter özelliğini alan bir sınıf oldu.
 {
-    private var onPopMenuClickListener:  OnPopUpMenuClickListener? = null
 
+    var onVerticalDotsClickListener : ((Int, View) -> Unit)? = null
 
+    /*
+    private var onVerticalDotsClickListener:  OnPopUpClickListener? = null
 
-    fun setOnPopUpClickListener(onPopMenuClickListener:  OnPopUpMenuClickListener?)
+    fun setOnVerticalDotsClickListener(onPopUpClickListener:  OnPopUpClickListener?)
     {
-        this.onPopMenuClickListener = onPopMenuClickListener
+        this.onVerticalDotsClickListener = onPopUpClickListener
     }
 
-    interface OnPopUpMenuClickListener{
-        fun onPopUpMenuClicked(position: Int)
-
+    interface OnPopUpClickListener{
+        fun onVerticalDotsClicked(position: Int, item: View)
     }
 
 
-
+     */
     inner class DataListViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
 
         var listImage = itemView.findViewById<ImageView>(R.id.listImage)
@@ -63,26 +62,12 @@ RecyclerView.Adapter<RecyclerViewAdapter.DataListViewHolder>() //böylece adapte
             holder.listName.text = deviceName.nameOfSavedDevice
         }
 
-        val popupMenu = PopupMenu(context, holder.verticalDots)
-        popupMenu.setOnMenuItemClickListener { position ->
-            setOnPopUpClickListener{
-                onPopMenuClickListener!!.onPopUpMenuClicked(position)
-            }
 
-            true
+
+        holder.verticalDots.setOnClickListener {
+            onVerticalDotsClickListener!!(position,holder.verticalDots)
         }
 
-        /*
-        holder.verticalDots.setOnClickListener{
-            val popupMenu = PopupMenu(context, holder.verticalDots)
-
-            popupMenu.menuInflater.inflate(R.menu.saved_device_popup, popupMenu.menu)
-
-
-            popupMenu.show()
-        }
-
-         */
     }
 
         /**val listData = dataItemList[position]
@@ -94,5 +79,4 @@ RecyclerView.Adapter<RecyclerViewAdapter.DataListViewHolder>() //böylece adapte
     override fun getItemCount(): Int {
         return dataItemList.size //listede kaç tane item olacağı / satır sayısı bildirilir
     }
-
 }
