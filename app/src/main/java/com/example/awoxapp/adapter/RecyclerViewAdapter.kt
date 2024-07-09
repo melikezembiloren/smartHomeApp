@@ -14,19 +14,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.awoxapp.R
 import com.example.awoxapp.Repository.entity.Devices
 
-class RecyclerViewAdapter(private val context: Context, private val dataItemList: ArrayList<Devices>):
+class RecyclerViewAdapter(private val context: Context, val dataItemList: ArrayList<Devices>):
 RecyclerView.Adapter<RecyclerViewAdapter.DataListViewHolder>() //böylece adapter özelliğini alan bir sınıf oldu.
 {
 
-    private var itemClickListener: OnPopUpMenuItemClickListener? = null
+    private var menuClickListener: OnPopUpMenuClickListener? = null
 
-    fun setOnPopUpMenuItemClickListener(listener: OnPopUpMenuItemClickListener) {
-        itemClickListener = listener
+
+    fun setOnPopUpMenuClickListener(listener: OnPopUpMenuClickListener) {
+        menuClickListener = listener
     }
 
 
-    interface OnPopUpMenuItemClickListener {
-        fun onMenuItemClicked(position: Int)
+    interface OnPopUpMenuClickListener {
+        fun onMenuClicked(position: Int, view: View)
     }
 
     /**private var onPopMenuClickListener:  OnPopUpMenuClickListener? = null
@@ -75,9 +76,16 @@ RecyclerView.Adapter<RecyclerViewAdapter.DataListViewHolder>() //böylece adapte
             holder.listName.text = deviceName.nameOfSavedDevice
         }
 
+        holder.verticalDots.setOnClickListener{
 
 
-        holder.verticalDots.setOnClickListener {
+          //  Toast.makeText(context, "adapter $position", Toast.LENGTH_LONG).show()
+            menuClickListener!!.onMenuClicked(position, holder.verticalDots)
+        }
+
+
+
+        /** holder.verticalDots.setOnClickListener {
             val popupMenu = PopupMenu(context, holder.verticalDots)
             popupMenu.menuInflater.inflate(R.menu.saved_device_popup, popupMenu.menu)
 
@@ -99,7 +107,7 @@ RecyclerView.Adapter<RecyclerViewAdapter.DataListViewHolder>() //böylece adapte
             }
 
             popupMenu.show()
-        }
+        }**/
     }
 
    /**     val popupMenu = PopupMenu(context, holder.verticalDots)

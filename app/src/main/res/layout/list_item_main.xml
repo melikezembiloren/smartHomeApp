@@ -80,8 +80,8 @@
 
                 <ImageButton
                     android:id="@+id/image_Button_three_dots_list_item_of_main"
-                    android:layout_width="14dp"
-                    android:layout_height="33dp"
+                    android:layout_width="33dp"
+                    android:layout_height="39dp"
                     android:layout_marginEnd="25dp"
                     android:layout_marginBottom="25dp"
                     android:background="?android:selectableItemBackground"

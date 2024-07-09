@@ -1,20 +1,35 @@
 package com.example.awoxapp.devicesListActivities
 
 import android.os.Bundle
+import android.view.View
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.example.awoxapp.IdGenerator
 import com.example.awoxapp.R
+import com.example.awoxapp.Repository.database.DevicesDataBase
+import com.example.awoxapp.Repository.entity.Devices
 import com.example.awoxapp.data.DevicesListData
 import com.example.awoxapp.databinding.ActivityTvBinding
 import com.example.awoxapp.adapter.ListAdapter
+import com.example.awoxapp.data.DeviceList
+import com.google.android.material.snackbar.Snackbar
 
 class TelevisionActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityTvBinding
     private lateinit var listAdapter: ListAdapter
     private lateinit var listData: DevicesListData
+    private lateinit var db : DevicesDataBase
 
     var dataArrayList = ArrayList<DevicesListData?>()
+
+    private fun initDB()
+    {
+        db = DevicesDataBase.getDeviceDataBase(this)
+    }
 
 
     private fun initBinding(){
@@ -47,17 +62,78 @@ class TelevisionActivity : AppCompatActivity() {
 
     }
 
+    private fun insertDataToDataBase(newDevice: Devices){
+
+        Thread {
+            db.devicesDAO().saveDevice(newDevice)
+            // Veritabanı işlemini gerçekleştirir ve sonucu iş parçacığına döner
+        }.start()
+
+    }
+
+    private fun addDeviceAlertDialog(selectedItemImage: Int, selectedItemType: String){
+
+        val dialogLayout = layoutInflater.inflate(R.layout.layout_add_device_alertdialog,null)
+
+
+        AlertDialog.Builder(this)
+            .setTitle(R.string.add_device_alert_dialog_title)
+            .setView(dialogLayout)
+            .setNegativeButton(R.string.add_device_alert_dialog_negative_button){ _, _ ->}
+            .setPositiveButton(R.string.add_device_alert_dialog_positive_button){ _, _ ->
+
+                val addDeviceEditText = dialogLayout.findViewById<EditText>(R.id.edit_text_add_device_alertDialog)
+                val savedDeviceName = addDeviceEditText.text.toString()
+
+
+                var tip = ""
+                when(selectedItemType){
+                    "Televizyon" -> tip  = "tv"
+
+                }
+
+                val deviceId = IdGenerator.generateId(tip)
+                Toast.makeText(this, "generatedId: ${deviceId}", Toast.LENGTH_SHORT).show()
+
+
+
+                val newDevice : Devices = Devices(deviceId, selectedItemType, selectedItemImage, savedDeviceName )
+
+                if(savedDeviceName.isNotEmpty()){
+
+                    insertDataToDataBase(newDevice)
+                    DeviceList.deviceObjectList.add(newDevice)
+
+                }
+                else {
+                    val rootView: View = findViewById(android.R.id.content)
+                    Snackbar.make(rootView, "Cihaz ismi boş bırakılamaz", Snackbar.LENGTH_LONG)
+                        .show()
+                }
+            }.create()
+            .show()
+    }
+
+    private fun initItemClicked() {
+        mBinding.listView.setOnItemClickListener { parent, view, position, id ->
+            val selectedItemType = dataArrayList[position]?.name
+            val selectedItemImage = dataArrayList[position]?.image
+            addDeviceAlertDialog(selectedItemImage!!, selectedItemType!!)
+
+        }
+    }
+
 
     private fun initialize()
     {
         initBinding()
+        initDB()
         backButtonClicked()
+        initItemClicked()
         list()
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_kitchen_devices)
-
         initialize()
 
     }
