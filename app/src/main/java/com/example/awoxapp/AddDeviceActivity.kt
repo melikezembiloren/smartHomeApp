@@ -63,25 +63,25 @@ class AddDeviceActivity : AppCompatActivity() {
     private fun glideOperations(){
         Glide
             .with(this@AddDeviceActivity)
-            .load(R.drawable.add_device_categories_kitchen)
+            .load(R.drawable.add_device_kitchen)
             .centerCrop()
             .into(mBinding.imageViewAddDeviceKitchen)
 
         Glide
             .with(this@AddDeviceActivity)
-            .load(R.drawable.add_device_categories_bathroom)
+            .load(R.drawable.add_device_bathroom)
             .centerCrop()
             .into(mBinding.imageViewAddDeviceBathroom)
 
         Glide
             .with(this@AddDeviceActivity)
-            .load(R.drawable.add_device_categories_tvphoto)
+            .load(R.drawable.add_device_tv)
             .centerCrop()
             .into(mBinding.imageViewAddDeviceTv)
 
         Glide
             .with(this@AddDeviceActivity)
-            .load(R.drawable.add_device_categories_home)
+            .load(R.drawable.add_device_other)
             .centerCrop()
             .into(mBinding.imageViewAddDeviceHome)
     }

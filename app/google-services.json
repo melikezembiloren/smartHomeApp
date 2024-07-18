@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "198319977788",
+    "project_id": "awoxapp",
+    "storage_bucket": "awoxapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:198319977788:android:775c8108e50519714e9a39",
+        "android_client_info": {
+          "package_name": "com.example.awoxapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCn50FF6AZzELJh7b7YA7Yyle-aioaos68"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

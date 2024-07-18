@@ -19,6 +19,7 @@ import com.example.awoxapp.Repository.repository.DevicesViewModel
 import com.example.awoxapp.adapter.RecyclerViewAdapter
 import com.example.awoxapp.data.DeviceList
 import com.example.awoxapp.databinding.ActivityMainBinding
+import com.example.awoxapp.login.RegisterActivity
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -71,27 +72,18 @@ class MainActivity : AppCompatActivity(){
 
             when (item!!.itemId) {
                 R.id.header1 -> {
-
                     removeAt(position)
                     rvAdapter.notifyDataSetChanged()
-
                 }
-
                 R.id.header2 -> {
-
                     navigateSavedDevicesSettingsActivity()
-
                 }
-
             }
-
             true
-
         }
 
-
-
     }
+
 
     private fun savedDevicesPopUpMenuClicked(){
 
@@ -178,7 +170,7 @@ class MainActivity : AppCompatActivity(){
                     IdGenerator.generateId(tip)
 
 
-                    
+
                 }
                 rvAdapter.notifyDataSetChanged()
             }
@@ -239,6 +231,8 @@ class MainActivity : AppCompatActivity(){
 
 
         initialize()
+
+        mBinding.button.setOnClickListener { startActivity(Intent(this, RegisterActivity::class.java)) }
     }
 
     override fun onStart() {

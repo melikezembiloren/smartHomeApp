@@ -7,6 +7,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="com.example.awoxapp.login.Users"/>
+        <import type="com.example.awoxapp.login.RegisterListenerViewModel"/>
+
+        <variable
+            name="usersRegisterInfo"
+            type="Users" />
+
+
+    <variable
+        name="registerActivityViewModel"
+        type="RegisterListenerViewModel" />
+        <variable name="acceptCommercialsEmail" type="Boolean" />
+        <variable name="acceptCommercialsSms" type="Boolean" />
+        <variable name="acceptUsingConditions" type="Boolean" />
+
+
+
+    </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -65,11 +86,14 @@
             android:layout_marginEnd="25dp"
             android:autofillHints=""
             android:inputType="textPersonName"
+            app:errorEnabled="true"
+            app:errorTextColor="@color/red"
             app:helperText="@string/required"
             app:helperTextEnabled="true"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/registerActivityEditTextUserFirstName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/shape_edit_text_login"
@@ -98,10 +122,11 @@
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
             android:autofillHints=""
-            android:inputType="textEmailAddress"
+            android:inputType="textPersonName"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/registerActivityEditTextUserMiddleName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/shape_edit_text_login"
@@ -129,7 +154,7 @@
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
             android:autofillHints=""
-            android:inputType="textEmailAddress"
+            android:inputType="textPersonName"
             app:helperText="@string/required"
             app:helperTextEnabled="true"
             tools:ignore="MissingConstraints">
@@ -137,6 +162,7 @@
 
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/registerActivityEditTextUserLastName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/shape_edit_text_login"
@@ -146,6 +172,46 @@
                 tools:layout_editor_absoluteY="602dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="25dp"
+            android:fontFamily="@font/poppinsmedium"
+            android:text="@string/register_page_email"
+            android:textColor="@color/white" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:autofillHints=""
+            android:inputType="textEmailAddress"
+            app:helperText="@string/required"
+            app:helperTextEnabled="true"
+            tools:ignore="MissingConstraints">
+
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/registerActivityEditTextUserEmail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_edit_text_login"
+                android:fontFamily="@font/poppinsmedium"
+                android:textColor="@color/white"
+                tools:layout_editor_absoluteX="36dp"
+                tools:layout_editor_absoluteY="602dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
 
         <TextView
             android:layout_width="match_parent"
@@ -165,21 +231,24 @@
             android:layout_marginEnd="25dp"
             android:hint="@string/hint_phone_number"
             android:autofillHints=""
-            android:inputType="textEmailAddress"
+
             app:helperText="@string/required"
             app:helperTextEnabled="true"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/registerActivityEditTextUserTelephoneNumber"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@drawable/shape_edit_text_login"
                 android:fontFamily="@font/poppinsmedium"
                 android:textColor="@color/white"
+                android:inputType="phone"
                 tools:layout_editor_absoluteX="36dp"
                 tools:layout_editor_absoluteY="602dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
 
         <TextView
             android:layout_width="match_parent"
@@ -197,21 +266,77 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
+            app:passwordToggleEnabled="true"
+
+            app:passwordToggleTintMode="src_atop"
             android:layout_marginEnd="25dp"
             android:autofillHints=""
-            android:inputType="textEmailAddress"
             app:helperText="@string/required"
             app:helperTextEnabled="true"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/registerActivityEditTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/shape_edit_text_login"
                 android:fontFamily="@font/poppinsmedium"
                 android:textColor="@color/white"
+                android:inputType="textPassword"
                 tools:layout_editor_absoluteX="36dp"
-                tools:layout_editor_absoluteY="602dp" />
+                tools:layout_editor_absoluteY="602dp"
+                android:text="azAZ123."/>
+
+                <TextView
+                android:id="@+id/textViewPasswordConditions1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/poppinssemibold"
+                android:textColor="@color/red"
+                android:textSize="11sp"
+                android:text="@string/strong_passwords_conditions1" />
+            <TextView
+                android:id="@+id/textViewPasswordConditions2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/poppinssemibold"
+                android:textColor="@color/red"
+                android:layout_weight="1"
+                android:textSize="11sp"
+                android:text="@string/strong_passwords_conditions2" />
+            <TextView
+                android:id="@+id/textViewPasswordConditions3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinssemibold"
+                android:textColor="@color/red"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:textSize="11sp"
+                android:text="@string/strong_passwords_conditions3" />
+            <TextView
+                android:id="@+id/textViewPasswordConditions4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/poppinssemibold"
+                android:textColor="@color/red"
+                android:layout_weight="1"
+                android:textSize="11sp"
+                android:text="@string/strong_passwords_conditions4" />
+            <TextView
+                android:id="@+id/textViewPasswordConditions5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/poppinssemibold"
+                android:textColor="@color/red"
+                android:layout_weight="1"
+                android:textSize="11sp"
+                android:text="@string/strong_passwords_conditions5" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -229,23 +354,38 @@
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTintMode="src_atop"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
             android:autofillHints=""
-            android:inputType="textEmailAddress"
             app:helperText="@string/required"
             app:helperTextEnabled="true"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/registerActivityEditTextUserConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/shape_edit_text_login"
                 android:fontFamily="@font/poppinsmedium"
                 android:textColor="@color/white"
+                android:inputType="textPassword"
+                android:text="azAZ123."
                 tools:layout_editor_absoluteX="36dp"
                 tools:layout_editor_absoluteY="602dp" />
+
+            <TextView
+                android:id="@+id/textViewConfirmPasswordFalse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/poppinsmedium"
+                android:textColor="@color/red"
+                android:textSize="11sp"
+                android:text="@string/confirm_password_warning_message" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -270,20 +410,15 @@
             android:textSize="12sp"
             android:text="@string/register_page_commercial_permission_for_sms" />
 
-        <CheckBox
-            android:id="@+id/checkBox"
+
+
+        <FrameLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="25dp"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:text="@string/register_page_term_of_use_checkbox" />
-
-
+            android:layout_height="match_parent" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/materialButton"
+            android:id="@+id/registerActivityRegisterButton"
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_marginTop="25dp"
@@ -291,7 +426,7 @@
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
             android:backgroundTint="@color/black_button"
-            android:fontFamily="@font/poppinsmedium"
+            android:fontFamily="@font/poppinsextrabold"
             android:text="@string/button_register"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -306,7 +441,13 @@
     </LinearLayout>
 
 
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </ScrollView>
 </layout>
 

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">AWOXapp</string>
     <string name="myDevices">Cihazlarım</string>
 
@@ -30,7 +30,7 @@
 
 
     <string name="button_forgot_password">Şifremi Unuttum</string>
-    <string name="button_login">GİRİŞ YAP</string>
+    <string name="button_login">Giriş Yap</string>
     <string name="button_register"> Kayıt Ol</string>
 
     <string name="register_page_first_name">Ad</string>
@@ -56,6 +56,38 @@
 
     <string name="saved_devices_popup_delete_device">Cihazı Sil</string>
     <string name="saved_devices_popup_settings">Ayarlar</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="title_activity_login">LoginActivity</string>
 
 
+    <string name="confirm_password_alert_dialog_title"> Uyarı </string>
+    <string name="confirm_password_alert_dialog_message"> Şifreler aynı değil </string>
+    <string name="confirm_password_alert_dialog_button"> Tamam </string>
+
+
+    <string name="strong_passwords_conditions1">En az 1 büyük harf,</string>
+    <string name="strong_passwords_conditions2">En az 1 küçük harf,</string>
+    <string name="strong_passwords_conditions3">En az 1 sembol (ör: /*>#$+),</string>
+    <string name="strong_passwords_conditions4">En az 1 sayı içermeli,</string>
+    <string name="strong_passwords_conditions5">En az 8 karakterden oluşmalıdır.</string>
+
+
+    <string name="confirm_password_warning_message"> Şifreler eşleşmiyor </string>
+
+
+    <string name="message_invalid_value"> Geçersiz değer</string>
+
+    <string name="message_empty_text">Bu alan boş bırakılamaz!</string>
+
+    <string name="accept_membershipr_agreement_title">Üyelik Sözleşmesi</string>
+    <string name="accept_protection_of_personal_data_title">Kişisel Verilerin Korunumu</string>
+    <string name="accept_button">Kabul et</string>
 </resources>

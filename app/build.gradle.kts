@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-parcelize")
     kotlin("kapt")
+    alias(libs.plugins.google.gms.google.services)
 
 }
 
@@ -54,6 +55,10 @@ android {
 
 dependencies {
 
+    implementation(libs.androidx.annotation)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.firebase.database)
     val room_version = "2.6.1"
 
     implementation(libs.androidx.core.ktx)
@@ -77,6 +82,9 @@ dependencies {
 
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
+
+
+
 
 
 
