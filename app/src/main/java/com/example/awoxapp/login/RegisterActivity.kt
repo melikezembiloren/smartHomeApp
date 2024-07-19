@@ -1,8 +1,6 @@
 package com.example.awoxapp.login
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,6 +8,7 @@ import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.EditText
+import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -357,11 +356,6 @@ class RegisterActivity : AppCompatActivity() {
 
 
 
-
-
-
-
-
                 }
 
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -381,13 +375,7 @@ class RegisterActivity : AppCompatActivity() {
             viewOfPassword.addTextChangedListener(textWatcher)
 
 
-
-
-
-
-
     }
-
 
 
 
@@ -400,7 +388,6 @@ class RegisterActivity : AppCompatActivity() {
         val dataUserTelephoneNumber = viewOfPhoneNumber.text.toString().toDouble()
         val dataUserPassword = viewOfPassword.text.toString()
         val dataUserConfirmPassword = viewOfConfirmPassword.text.toString()
-
 
 
         if(confirmPassword(dataUserPassword, dataUserConfirmPassword)){
@@ -420,23 +407,37 @@ class RegisterActivity : AppCompatActivity() {
         }
 
 
-
-
     }
 
+//    private fun scrollChangeListener(){
+//
+//        val maDialogView = layoutInflater.inflate(R.layout.dialog_member_ship_agreement, null)
+//
+//        val scrollView : ScrollView = maDialogView.findViewById<ScrollView?>(R.id.scrollViewMembershipAgreement)
+//        val view = scrollView.getChildAt(scrollView.childCount - 1)
+//
+//        val bottomDetector = view.bottom - (scrollView.height + scrollView.scrollY)
+//
+//        if(bottomDetector == 0){
+//            Toast.makeText(this, "Scroll View bottom reached",Toast.LENGTH_SHORT).show()
+//        }
+//
+//    }
 
 
 
-    @SuppressLint("SetJavaScriptEnabled")
+
+
+
+
     private fun alertDialogMemberShipAgreement() {
-
 
         val maDialogView = layoutInflater.inflate(R.layout.dialog_member_ship_agreement, null)
 
-        val webViewMemberShipAgreement: WebView = maDialogView.findViewById(R.id.webViewMemberShip)
-        webViewMemberShipAgreement.webViewClient = WebViewClient()
 
-        MaterialAlertDialogBuilder(this, R.style.Dialog)
+        val webViewMemberShipAgreement: WebView = maDialogView.findViewById(R.id.webViewMemberShip)
+
+           MaterialAlertDialogBuilder(this, R.style.Dialog)
             .setTitle(R.string.accept_membership_agreement_title)
             .setView(maDialogView)
             .setNegativeButton(R.string.cancel_button) { dialog, _ ->
@@ -450,10 +451,31 @@ class RegisterActivity : AppCompatActivity() {
 
         webViewMemberShipAgreement.settings.javaScriptEnabled = true
         val url = MEMBERSHIP_AGREEMENT
-        webViewMemberShipAgreement.loadUrl(url)
+
+
+            webViewMemberShipAgreement.addJavascriptInterface( WebAppInterface(this), "Android");
+
+            webViewMemberShipAgreement.setWebViewClient(object : WebViewClient() {
+                override fun onPageFinished(view: WebView, url: String) {
+                    super.onPageFinished(view, url)
+                    webViewMemberShipAgreement.loadUrl(
+                        "javascript:(function() { " +
+                                "window.onscroll = function() { " +
+                                "    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) { " +
+                                "        Android.onScrollToBottom(); " +
+                                "    } " +
+                                "}; " +
+                                "})()"
+                    )
+                }
+            })
+
+            webViewMemberShipAgreement.loadUrl(url)
 
 
     }
+
+
 
     private fun alertDialogProtectionOfPersonalData(){
 
@@ -497,6 +519,7 @@ class RegisterActivity : AppCompatActivity() {
         initVisibilities()
         initListeners()
         registerButtonClicked()
+
     }
 
 
