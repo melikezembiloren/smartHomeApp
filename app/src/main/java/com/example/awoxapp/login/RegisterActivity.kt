@@ -1,10 +1,14 @@
 package com.example.awoxapp.login
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.Button
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -14,12 +18,17 @@ import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import com.example.awoxapp.R
 import com.example.awoxapp.databinding.ActivityRegisterBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.FirebaseDatabase
 import kotlin.properties.Delegates
 
 
 const val MIN_PASSWORD_LENGTH = 8
 const val TELEPHONE_NUMBER_LENGTH = 10
+
+const val PROTECTION_PERSONAL_DATA_URL = "https://www.awox.com.tr/UyelikSozlesme.aspx?sozlemeTipi=5"
+const val MEMBERSHIP_AGREEMENT = "https://www.awox.com.tr/UyelikSozlesme.aspx"
+
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -415,73 +424,60 @@ class RegisterActivity : AppCompatActivity() {
 
     }
 
-    private fun acceptConditionsAndRegister(){
 
-        val dialogFragmentView = layoutInflater.inflate(R.layout.fragment_protection_of_personal_data, null )
-        val acceptButton = dialogFragmentView.findViewById<Button>(R.id.protectDataAcceptButton)
 
-        acceptButton.apply {
-            setOnClickListener {
-                insertFireBaseDatabase()
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private fun alertDialogMemberShipAgreement() {
+
+
+        val maDialogView = layoutInflater.inflate(R.layout.dialog_member_ship_agreement, null)
+
+        val webViewMemberShipAgreement: WebView = maDialogView.findViewById(R.id.webViewMemberShip)
+        webViewMemberShipAgreement.webViewClient = WebViewClient()
+
+        MaterialAlertDialogBuilder(this, R.style.Dialog)
+            .setTitle(R.string.accept_membership_agreement_title)
+            .setView(maDialogView)
+            .setNegativeButton(R.string.cancel_button) { dialog, _ ->
+                dialog.dismiss()
             }
-        }
+            .setPositiveButton(R.string.accept_button) { _, _ ->
+                alertDialogProtectionOfPersonalData()
+            }.create()
+            .show()
+
+
+        webViewMemberShipAgreement.settings.javaScriptEnabled = true
+        val url = MEMBERSHIP_AGREEMENT
+        webViewMemberShipAgreement.loadUrl(url)
 
 
     }
 
-    private fun navigateMemberShipFragment(){
-
-        val dialogFragment = MemberShipAgreementDialogFragment()
-        dialogFragment.show(supportFragmentManager, "MembershipDialogAgreement")
+    private fun alertDialogProtectionOfPersonalData(){
 
 
+        val popdDialogView = layoutInflater.inflate(R.layout.dialog_protection_of_personal_data, null)
+
+        val webViewProtectionPersonalDAta: WebView = popdDialogView.findViewById(R.id.webViewProtectionOfPersonalData)
+        webViewProtectionPersonalDAta.webViewClient = WebViewClient()
+
+        MaterialAlertDialogBuilder(this, R.style.Dialog)
+            .setTitle(R.string.accept_protection_of_personal_data_title)
+            .setView(popdDialogView)
+            .setNegativeButton(R.string.cancel_button) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setPositiveButton(R.string.accept_button) {_,_ ->
+                insertFireBaseDatabase()
+            }.create()
+            .show()
 
 
-
-
-
-
-//        val fragment =  MemberShipAgreementFragment()
-//        val transaction = supportFragmentManager.beginTransaction()
-//
-//            transaction.replace(R.id.container, fragment)
-//            transaction.addToBackStack(null)
-//            transaction.commit()
-
+        val url = PROTECTION_PERSONAL_DATA_URL
+        webViewProtectionPersonalDAta.loadUrl(url)
     }
-
-//    private fun dataPassing(){
-//
-//        val dataUsersFirstName = viewOfFirstName.text.toString()
-//        val dataUsersMiddleName = viewOfMiddleName.text.toString()
-//        val dataUserLastName = viewOfLastName.text.toString()
-//        val dataUserEmail = viewOfEmail.text.toString()
-//        val dataUserTelephoneNumber = viewOfPhoneNumber.text.toString().toDouble()
-//        val dataUserPassword = viewOfPassword.text.toString()
-//        val dataUserConfirmPassword = viewOfConfirmPassword.text.toString()
-//
-//        val mFragment = ProtectionOfPErsonalDataDialogFragment()
-//        val mTransaction = supportFragmentManager.beginTransaction()
-//
-//        mBinding.usersRegisterInfo
-//       val bundle = Bundle()
-//        bundle.putString(EDIT_TEXT_FIRST_NAME , dataUsersFirstName)
-//        bundle.putString(EDIT_TEXT_MIDDLE_NAME, dataUsersMiddleName)
-//        bundle.putString(EDIT_TEXT_LAST_NAME, dataUserLastName)
-//        bundle.putString(EDIT_TEXT_EMAIL, dataUserEmail)
-//        bundle.putString(EDIT_TEXT_PHONE_NUMBER, dataUserTelephoneNumber.toString())
-//        bundle.putString(EDIT_TEXT_PASSWORD, dataUserPassword)
-//        bundle.putString(EDIT_TEXT_CONFIRM_PASSWORD, dataUserConfirmPassword)
-//        bundle.putStringArrayList()
-//
-//            bundle.putSerializable("URI",mBinding.usersRegisterInfo)
-//        Intent().putExtra("kry",mBinding.usersRegisterInfo)
-//            mFragment.arguments = bundle
-//           mTransaction.add(R.id.dialogFragment, mFragment)
-//        mTransaction.commit()
-//
-//
-//    }
 
 
 
@@ -491,7 +487,7 @@ class RegisterActivity : AppCompatActivity() {
         Toast.makeText(this,"button clicked", Toast.LENGTH_LONG).show()
 
         mBinding.registerActivityRegisterButton.apply {
-            setOnClickListener { navigateMemberShipFragment()}
+            setOnClickListener { alertDialogMemberShipAgreement()}
         }
     }
 
@@ -501,7 +497,6 @@ class RegisterActivity : AppCompatActivity() {
         initVisibilities()
         initListeners()
         registerButtonClicked()
-        acceptConditionsAndRegister()
     }
 
 

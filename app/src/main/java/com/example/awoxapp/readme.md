@@ -116,4 +116,51 @@
         //            mBinding.registerActivityRegisterButton.isEnabled = emptyTag
 
    
+----------------------------------------------------
+
+
+
+//        val fragment =  MemberShipAgreementFragment()
+//        val transaction = supportFragmentManager.beginTransaction()
+//
+//            transaction.replace(R.id.container, fragment)
+//            transaction.addToBackStack(null)
+//            transaction.commit()
+
+//    }
+
+//    private fun dataPassing(){
+//
+//        val dataUsersFirstName = viewOfFirstName.text.toString()
+//        val dataUsersMiddleName = viewOfMiddleName.text.toString()
+//        val dataUserLastName = viewOfLastName.text.toString()
+//        val dataUserEmail = viewOfEmail.text.toString()
+//        val dataUserTelephoneNumber = viewOfPhoneNumber.text.toString().toDouble()
+//        val dataUserPassword = viewOfPassword.text.toString()
+//        val dataUserConfirmPassword = viewOfConfirmPassword.text.toString()
+//
+//        val mFragment = ProtectionOfPErsonalDataDialogFragment()
+//        val mTransaction = supportFragmentManager.beginTransaction()
+//
+//        mBinding.usersRegisterInfo
+//       val bundle = Bundle()
+//        bundle.putString(EDIT_TEXT_FIRST_NAME , dataUsersFirstName)
+//        bundle.putString(EDIT_TEXT_MIDDLE_NAME, dataUsersMiddleName)
+//        bundle.putString(EDIT_TEXT_LAST_NAME, dataUserLastName)
+//        bundle.putString(EDIT_TEXT_EMAIL, dataUserEmail)
+//        bundle.putString(EDIT_TEXT_PHONE_NUMBER, dataUserTelephoneNumber.toString())
+//        bundle.putString(EDIT_TEXT_PASSWORD, dataUserPassword)
+//        bundle.putString(EDIT_TEXT_CONFIRM_PASSWORD, dataUserConfirmPassword)
+//        bundle.putStringArrayList()
+//
+//            bundle.putSerializable("URI",mBinding.usersRegisterInfo)
+//        Intent().putExtra("kry",mBinding.usersRegisterInfo)
+//            mFragment.arguments = bundle
+//           mTransaction.add(R.id.dialogFragment, mFragment)
+//        mTransaction.commit()
+//
+//
+//    }
+
+
 

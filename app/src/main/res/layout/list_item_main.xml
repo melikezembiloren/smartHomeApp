@@ -47,15 +47,14 @@
                     android:id="@+id/listImage"
                     android:layout_width="54dp"
                     android:layout_height="51dp"
-                    android:layout_marginStart="20dp"
                     app:cardCornerRadius="15dp"
                     app:cardElevation="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/addDeviceButton"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.156"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.217"
+                    app:layout_constraintVertical_bias="0.17"
                     app:srcCompat="@drawable/devices_list_airfryer">
 
                 </com.google.android.material.imageview.ShapeableImageView>

@@ -85,7 +85,6 @@
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
             android:autofillHints=""
-            android:inputType="textPersonName"
             app:errorEnabled="true"
             app:errorTextColor="@color/red"
             app:helperText="@string/required"
@@ -97,6 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/shape_edit_text_login"
+                android:inputType="textPersonName"
                 android:fontFamily="@font/poppinsmedium"
                 android:textColor="@color/white"
                 tools:layout_editor_absoluteX="36dp"
@@ -122,7 +122,6 @@
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
             android:autofillHints=""
-            android:inputType="textPersonName"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -130,6 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/shape_edit_text_login"
+                android:inputType="textPersonName"
                 android:fontFamily="@font/poppinsmedium"
                 android:textColor="@color/white"
                 tools:layout_editor_absoluteX="36dp"
@@ -244,6 +244,7 @@
                 android:fontFamily="@font/poppinsmedium"
                 android:textColor="@color/white"
                 android:inputType="phone"
+                android:text="5539256029"
                 tools:layout_editor_absoluteX="36dp"
                 tools:layout_editor_absoluteY="602dp" />
 

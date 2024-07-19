@@ -87,7 +87,8 @@
 
     <string name="message_empty_text">Bu alan boş bırakılamaz!</string>
 
-    <string name="accept_membershipr_agreement_title">Üyelik Sözleşmesi</string>
+    <string name="accept_membership_agreement_title">Üyelik Sözleşmesi</string>
     <string name="accept_protection_of_personal_data_title">Kişisel Verilerin Korunumu</string>
     <string name="accept_button">Kabul et</string>
+    <string name="cancel_button">İptal</string>
 </resources>
