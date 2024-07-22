@@ -1,23 +1,35 @@
 package com.example.awoxapp.login
 
 import android.annotation.SuppressLint
+import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.SpannedString
 import android.text.TextWatcher
+import android.text.style.UnderlineSpan
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Button
 import android.widget.EditText
-import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import com.example.awoxapp.R
 import com.example.awoxapp.databinding.ActivityRegisterBinding
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import com.google.firebase.database.FirebaseDatabase
 import kotlin.properties.Delegates
 
@@ -27,6 +39,7 @@ const val TELEPHONE_NUMBER_LENGTH = 10
 
 const val PROTECTION_PERSONAL_DATA_URL = "https://www.awox.com.tr/UyelikSozlesme.aspx?sozlemeTipi=5"
 const val MEMBERSHIP_AGREEMENT = "https://www.awox.com.tr/UyelikSozlesme.aspx"
+
 
 
 class RegisterActivity : AppCompatActivity() {
@@ -44,6 +57,13 @@ class RegisterActivity : AppCompatActivity() {
     private var emptyTag by Delegates.notNull<Boolean>()
     private var passwordTag by Delegates.notNull<Boolean>()
 
+    private lateinit var auth: FirebaseAuth
+
+
+
+
+
+
     private fun initBinding(){
         mBinding = DataBindingUtil.setContentView(this@RegisterActivity, R.layout.activity_register)
 
@@ -56,6 +76,7 @@ class RegisterActivity : AppCompatActivity() {
         passwordTag = false
 
 
+        auth = Firebase.auth
 
         mBinding.registerActivityRegisterButton.isEnabled = false
 
@@ -66,6 +87,11 @@ class RegisterActivity : AppCompatActivity() {
         viewOfPhoneNumber = mBinding.registerActivityEditTextUserTelephoneNumber
         viewOfPassword = mBinding.registerActivityEditTextPassword
         viewOfConfirmPassword = mBinding.registerActivityEditTextUserConfirmPassword
+
+        val text = mBinding.textViewNavigateLoginPage.text
+        val spannableString : SpannableString = SpannableString(text)
+        spannableString.setSpan(UnderlineSpan(), 0, spannableString.length,0)
+        mBinding.textViewNavigateLoginPage.text = spannableString
 
  }
     private fun initVisibilities(){
@@ -377,6 +403,25 @@ class RegisterActivity : AppCompatActivity() {
 
     }
 
+    private fun signUp(){
+        val dataUserEmail = viewOfEmail.text.toString()
+        val dataUserPassword = viewOfPassword.text.toString()
+
+
+        auth.createUserWithEmailAndPassword(dataUserEmail , dataUserPassword).addOnCompleteListener(
+           this ){task ->
+            if(task.isSuccessful){
+                Toast.makeText(this, "SignUp successful", Toast.LENGTH_LONG).show()
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }else{
+                Toast.makeText(this, "SignUp failed" + task.exception!!.message, Toast.LENGTH_LONG).show()
+
+
+            }
+        }
+    }
+
 
 
     private fun insertFireBaseDatabase(){
@@ -406,6 +451,8 @@ class RegisterActivity : AppCompatActivity() {
 
         }
 
+        signUp()
+
 
     }
 
@@ -434,26 +481,40 @@ class RegisterActivity : AppCompatActivity() {
 
         val maDialogView = layoutInflater.inflate(R.layout.dialog_member_ship_agreement, null)
 
-
         val webViewMemberShipAgreement: WebView = maDialogView.findViewById(R.id.webViewMemberShip)
 
-           MaterialAlertDialogBuilder(this, R.style.Dialog)
-            .setTitle(R.string.accept_membership_agreement_title)
+        val alert = MaterialAlertDialogBuilder(this)
             .setView(maDialogView)
-            .setNegativeButton(R.string.cancel_button) { dialog, _ ->
-                dialog.dismiss()
-            }
-            .setPositiveButton(R.string.accept_button) { _, _ ->
-                alertDialogProtectionOfPersonalData()
-            }.create()
-            .show()
+        val dialog = alert.create()
+//            dialog.setCancelable(false)
+
+
+
+        var positiveButton = maDialogView.findViewById<Button>(R.id.accept_button)
+                positiveButton.setOnClickListener{alertDialogProtectionOfPersonalData()}
+
+        val negativeButton = maDialogView.findViewById<Button>(R.id.cancel_button)
+        negativeButton.setOnClickListener{dialog.dismiss()}
+
+
+
+//            .setNegativeButton(R.string.cancel_button) { dialog, _ ->
+//                dialog.dismiss()
+//            }
+//            .setPositiveButton(R.string.accept_button) { _, _ ->
+//                alertDialogProtectionOfPersonalData()
+//            }.create()
+//
+        dialog.show()
 
 
         webViewMemberShipAgreement.settings.javaScriptEnabled = true
-        val url = MEMBERSHIP_AGREEMENT
 
 
-            webViewMemberShipAgreement.addJavascriptInterface( WebAppInterface(this), "Android");
+
+            positiveButton.isEnabled = false
+            webViewMemberShipAgreement.addJavascriptInterface( WebAppInterface(this, positiveButton ), "Android");
+
 
             webViewMemberShipAgreement.setWebViewClient(object : WebViewClient() {
                 override fun onPageFinished(view: WebView, url: String) {
@@ -470,7 +531,7 @@ class RegisterActivity : AppCompatActivity() {
                 }
             })
 
-            webViewMemberShipAgreement.loadUrl(url)
+            webViewMemberShipAgreement.loadUrl(MEMBERSHIP_AGREEMENT)
 
 
     }
@@ -483,23 +544,65 @@ class RegisterActivity : AppCompatActivity() {
         val popdDialogView = layoutInflater.inflate(R.layout.dialog_protection_of_personal_data, null)
 
         val webViewProtectionPersonalDAta: WebView = popdDialogView.findViewById(R.id.webViewProtectionOfPersonalData)
-        webViewProtectionPersonalDAta.webViewClient = WebViewClient()
 
-        MaterialAlertDialogBuilder(this, R.style.Dialog)
-            .setTitle(R.string.accept_protection_of_personal_data_title)
+        val alert = MaterialAlertDialogBuilder(this)
             .setView(popdDialogView)
-            .setNegativeButton(R.string.cancel_button) { dialog, _ ->
-                dialog.dismiss()
+        val dialog = alert.create()
+//            dialog.setCancelable(false)
+
+        val negativeButton = popdDialogView.findViewById<Button>(R.id.cancel_button)
+        negativeButton.setOnClickListener{dialog.dismiss()}
+
+        val positiveButton = popdDialogView.findViewById<Button>(R.id.accept_button)
+        positiveButton.setOnClickListener{insertFireBaseDatabase()}
+
+        dialog.show()
+
+
+        webViewProtectionPersonalDAta.settings.javaScriptEnabled = true
+
+
+
+        positiveButton.isEnabled = false
+        webViewProtectionPersonalDAta.addJavascriptInterface( WebAppInterface(this, positiveButton ), "Android");
+
+
+        webViewProtectionPersonalDAta.setWebViewClient(object : WebViewClient() {
+            override fun onPageFinished(view: WebView, url: String) {
+                super.onPageFinished(view, url)
+                webViewProtectionPersonalDAta.loadUrl(
+                    "javascript:(function() { " +
+                            "window.onscroll = function() { " +
+                            "    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) { " +
+                            "        Android.onScrollToBottom(); " +
+                            "    } " +
+                            "}; " +
+                            "})()"
+                )
             }
-            .setPositiveButton(R.string.accept_button) {_,_ ->
-                insertFireBaseDatabase()
-            }.create()
-            .show()
+        })
+
+        webViewProtectionPersonalDAta.loadUrl(PROTECTION_PERSONAL_DATA_URL)
 
 
-        val url = PROTECTION_PERSONAL_DATA_URL
-        webViewProtectionPersonalDAta.loadUrl(url)
     }
+
+
+
+
+
+        //        webViewProtectionPersonalDAta.webViewClient = WebViewClient()
+
+//            .setNegativeButton(R.string.cancel_button) { dialog, _ ->
+//                dialog.dismiss()
+//            }
+//            .setPositiveButton(R.string.accept_button) {_,_ ->
+//                insertFireBaseDatabase()
+//            }.create()
+//            .show()
+
+
+
 
 
 
@@ -513,14 +616,28 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    private fun navigateLoginPage(){
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun alreadyHaveAnAccountTextClicked(){
+
+
+        mBinding.textViewNavigateLoginPage.setOnClickListener{navigateLoginPage()}
+    }
+
     private fun initialize(){
         initBinding()
         initData()
         initVisibilities()
         initListeners()
         registerButtonClicked()
+        alreadyHaveAnAccountTextClicked()
 
     }
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

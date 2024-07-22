@@ -5,6 +5,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="loginEmail"
+            type="String" />
+
+        <variable
+            name="loginPass"
+            type="String" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
@@ -97,11 +107,13 @@
                     tools:ignore="MissingConstraints">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextLoginEmail"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/shape_edit_text_login"
                         android:fontFamily="@font/poppinsmedium"
                         android:textColor="@color/white"
+                        android:text="@={loginEmail}"
                         tools:layout_editor_absoluteX="36dp"
                         tools:layout_editor_absoluteY="602dp" />
 
@@ -109,29 +121,41 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTintMode="src_atop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
                     android:layout_marginEnd="25dp"
-                    android:autofillHints=""
-                    app:passwordToggleEnabled="true"
-                    android:hint="@string/hint_edit_text_password"
                     android:inputType="textPassword"
+                    android:autofillHints=""
+                    android:hint="@string/hint_edit_text_password"
                     app:helperTextEnabled="true"
                     tools:ignore="MissingConstraints">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextLoginPassword"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="textPassword"
+                        android:text="@={loginPass}"
                         android:background="@drawable/shape_edit_text_login"
                         android:fontFamily="@font/poppinsmedium"
                         android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/textViewLoginFailure"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/red"
+                        android:text="@string/login_failure" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/textViewForgotPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -199,9 +223,10 @@
 
 
             <TextView
+                android:id="@+id/TextViewNavigateRegisterPage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
+                android:layout_marginStart="3dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:fontFamily="@font/poppindbold"
