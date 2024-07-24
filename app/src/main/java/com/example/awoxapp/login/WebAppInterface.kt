@@ -21,6 +21,5 @@ class WebAppInterface(c: Context, val button: Button) {
     fun onScrollToBottom() {
         // Handle scroll to bottom event here
         button.isEnabled = true
-        Toast.makeText(mContext, "Scrolled to Bottom", Toast.LENGTH_SHORT).show()
     }
 }

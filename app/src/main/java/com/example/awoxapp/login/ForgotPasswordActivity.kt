@@ -1,6 +1,8 @@
 package com.example.awoxapp.login
 
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.UnderlineSpan
 import android.util.Patterns
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -35,30 +37,37 @@ class ForgotPasswordActivity : AppCompatActivity() {
     private fun resetPassword(){
         val editTextEmail = mBinding.editTextResetPasswordEmail.text.toString()
 
-        if(Patterns.EMAIL_ADDRESS.matcher(editTextEmail).matches()) {
-
-            if (editTextEmail.isNotEmpty()) {
+        if (editTextEmail.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(editTextEmail).matches()) {
                 auth.sendPasswordResetEmail(editTextEmail)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(this, "Reset password successful", Toast.LENGTH_LONG)
                                 .show()
+
                         } else {
                             Toast.makeText(this, "Reset password failure", Toast.LENGTH_LONG).show()
                         }
 
                     }
-            } else {
+            } else if (editTextEmail.isEmpty()){
                 mBinding.editTextResetPasswordEmail.error = getString(R.string.login_empty_email)
-            }
-        }else{
+            }else{
             mBinding.editTextResetPasswordEmail.error = getString(R.string.login_invalid_email)
         }
     }
 
     private fun resetPasswordButtonClicked(){
 
-                mBinding.resetPasswordButton.setOnClickListener{resetPassword()}
+        mBinding.resetPasswordButton.setOnClickListener{resetPassword()}
+    }
+
+    private fun goBackTextViewClicked(){
+        val textForgotPassword = mBinding.textViewButtonGoBack.text
+        val spannableStringTextForgotPassword : SpannableString = SpannableString(textForgotPassword)
+        spannableStringTextForgotPassword.setSpan(UnderlineSpan(), 0, spannableStringTextForgotPassword.length,0)
+        mBinding.textViewButtonGoBack.text = spannableStringTextForgotPassword
+
+        mBinding.textViewButtonGoBack.setOnClickListener { finish() }
     }
 
     private fun initialize(){
@@ -66,6 +75,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
         initData()
         backButtonClicked()
         resetPasswordButtonClicked()
+        goBackTextViewClicked()
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

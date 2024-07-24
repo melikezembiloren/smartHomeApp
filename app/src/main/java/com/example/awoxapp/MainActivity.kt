@@ -119,7 +119,7 @@ class MainActivity : AppCompatActivity(){
 
         mRecyclerView = mBinding.recyclerView
         mRecyclerView.setHasFixedSize(true)
-        mRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        mRecyclerView.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
         rvAdapter = RecyclerViewAdapter(this, DeviceList.deviceObjectList)
         mRecyclerView.adapter = rvAdapter
         savedDevicesPopUpMenuClicked()

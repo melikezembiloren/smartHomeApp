@@ -5,20 +5,19 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
 import android.util.Patterns
+import android.widget.Button
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.example.awoxapp.MainActivity
 import com.example.awoxapp.R
 import com.example.awoxapp.databinding.ActivityLoginBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
-import kotlin.math.log
 
 class LoginActivity : AppCompatActivity() {
 
@@ -50,28 +49,69 @@ class LoginActivity : AppCompatActivity() {
         mBinding.textViewForgotPassword.text = spannableStringTextForgotPassword
     }
 
+
+
+    private fun emailVerificationINotCompletedAlertDialog(){
+
+        val view = layoutInflater.inflate(R.layout.custom_dialog_verification_not_completed, null)
+
+        val alert = MaterialAlertDialogBuilder(this)
+            .setBackground(getDrawable(R.drawable.transparent))
+            .setView(view)
+
+        val dialog = alert.create()
+
+
+        val button1 = view.findViewById<Button>(R.id.button1)
+        button1.setOnClickListener{dialog.dismiss()}
+
+        val button2 = view.findViewById<Button>(R.id.button2)
+        button2.setOnClickListener{auth.currentUser!!.sendEmailVerification().addOnCompleteListener(this){
+                task ->
+            if(task.isSuccessful){
+                AlertDialog.Builder(this)
+                    .setMessage("Doğrulama linki gönderildi, gelen kutunuzu kontrol edin")
+                    .setNeutralButton("Tamam"){_,_ ->}
+                    .create()
+                    .show()
+            }else{
+                Toast.makeText(this, "Email verification can't send" + task.exception!!.message,
+                    Toast.LENGTH_LONG).show()
+            }
+        }
+        }
+
+        dialog.show()
+    }
+
     private fun login(){
 
         val email = mBinding.loginEmail.toString()
         val password = mBinding.loginPass.toString()
 
+
         if(email.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()){
 
             if (password.isNotEmpty()) {
 
-                auth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful) {
-                            Toast.makeText(this, "Login successful", Toast.LENGTH_LONG).show()
-                            navigateMainActivity()
-                        } else {
-                            Toast.makeText(this, "Login: Failure", Toast.LENGTH_LONG).show()
-                            mBinding.textViewLoginFailure.isVisible = true
+                if(auth.currentUser!!.isEmailVerified) {
+
+                    auth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(this) { task ->
+                            if (task.isSuccessful) {
+                                Toast.makeText(this, "Login successful", Toast.LENGTH_LONG).show()
+                                navigateMainActivity()
+                            } else {
+                                Toast.makeText(this, "Login: Failure", Toast.LENGTH_LONG).show()
+                                mBinding.textViewLoginFailure.isVisible = true
+
+                            }
+
 
                         }
-
-
-                    }
+                }else{
+                    emailVerificationINotCompletedAlertDialog()
+                }
 
             }else{
                 mBinding.editTextLoginPassword.error = getString(R.string.login_empty_password)

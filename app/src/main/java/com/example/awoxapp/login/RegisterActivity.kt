@@ -1,6 +1,5 @@
 package com.example.awoxapp.login
 
-import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +10,7 @@ import android.text.Spanned
 import android.text.SpannedString
 import android.text.TextWatcher
 import android.text.style.UnderlineSpan
+import android.util.Patterns
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -20,9 +20,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.shape.ZeroCornerSize
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
+import com.example.awoxapp.MainActivity
 import com.example.awoxapp.R
 import com.example.awoxapp.databinding.ActivityRegisterBinding
 import com.google.android.gms.tasks.OnCompleteListener
@@ -31,6 +33,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.database.FirebaseDatabase
+import org.intellij.lang.annotations.Pattern
 import kotlin.properties.Delegates
 
 
@@ -39,6 +42,9 @@ const val TELEPHONE_NUMBER_LENGTH = 10
 
 const val PROTECTION_PERSONAL_DATA_URL = "https://www.awox.com.tr/UyelikSozlesme.aspx?sozlemeTipi=5"
 const val MEMBERSHIP_AGREEMENT = "https://www.awox.com.tr/UyelikSozlesme.aspx"
+
+val COLOR_ID_FOR_VALID  = R.color.green
+val COLOR_ID_FOR_INVALID = R.color.md_theme_error
 
 
 
@@ -58,9 +64,6 @@ class RegisterActivity : AppCompatActivity() {
     private var passwordTag by Delegates.notNull<Boolean>()
 
     private lateinit var auth: FirebaseAuth
-
-
-
 
 
 
@@ -94,7 +97,11 @@ class RegisterActivity : AppCompatActivity() {
         mBinding.textViewNavigateLoginPage.text = spannableString
 
  }
+
+
     private fun initVisibilities(){
+
+
         mBinding.textViewConfirmPasswordFalse.visibility = View.GONE
         mBinding.textViewPasswordConditions5.visibility = View.GONE
         mBinding.textViewPasswordConditions1.visibility = View.GONE
@@ -109,14 +116,6 @@ class RegisterActivity : AppCompatActivity() {
 
         val colorValue = ContextCompat.getColor(this@RegisterActivity, colorId)
         textview.setTextColor(colorValue)
-    }
-
-
-    private fun initListeners(){
-        fieldsTextWatcher()
-        confirmPasswordTextChangeListener()
-        passwordTextChangeListener()
-
     }
 
 
@@ -177,9 +176,6 @@ class RegisterActivity : AppCompatActivity() {
             mBinding.textViewPasswordConditions4.visibility = View.VISIBLE
 
 
-            val colorIdForValid = R.color.green
-            val colorIdForNotValid = R.color.red
-
             val dataUsersPassword = viewOfPassword.text.toString()
 
             fun isThereUpperCase(): Boolean {
@@ -187,12 +183,12 @@ class RegisterActivity : AppCompatActivity() {
                 var result = false
 
                 if (TextControl.textControlForUpperCase(dataUsersPassword)) {
-                    setColor(mBinding.textViewPasswordConditions1, colorIdForValid)
+                    setColor(mBinding.textViewPasswordConditions1, COLOR_ID_FOR_VALID)
 
                     result = true
 
                 } else {
-                    setColor(mBinding.textViewPasswordConditions1, colorIdForNotValid)
+                    setColor(mBinding.textViewPasswordConditions1, COLOR_ID_FOR_INVALID)
 
                     result = false
 
@@ -207,13 +203,13 @@ class RegisterActivity : AppCompatActivity() {
 
                 var result = false
                 if (TextControl.textControlForLowerCase(dataUsersPassword)) {
-                    setColor(mBinding.textViewPasswordConditions2, colorIdForValid)
+                    setColor(mBinding.textViewPasswordConditions2, COLOR_ID_FOR_VALID)
 
                     result = true
 
 
                 } else {
-                    setColor(mBinding.textViewPasswordConditions2, colorIdForNotValid)
+                    setColor(mBinding.textViewPasswordConditions2, COLOR_ID_FOR_INVALID)
                     result = false
 
                 }
@@ -227,12 +223,12 @@ class RegisterActivity : AppCompatActivity() {
             fun isThereSymbols(): Boolean {
                 var result = false
                 if (TextControl.textControlForSymbols(dataUsersPassword)) {
-                    setColor(mBinding.textViewPasswordConditions3, colorIdForValid)
+                    setColor(mBinding.textViewPasswordConditions3, COLOR_ID_FOR_VALID)
 
                     result = true
 
                 } else {
-                    setColor(mBinding.textViewPasswordConditions3, colorIdForNotValid)
+                    setColor(mBinding.textViewPasswordConditions3, COLOR_ID_FOR_INVALID)
                     result = false
 
                 }
@@ -247,13 +243,13 @@ class RegisterActivity : AppCompatActivity() {
 
                 var result = false
                 if (TextControl.textControlForNumbers(dataUsersPassword)) {
-                    setColor(mBinding.textViewPasswordConditions4, colorIdForValid)
+                    setColor(mBinding.textViewPasswordConditions4, COLOR_ID_FOR_VALID)
 
                     result = true
 
 
                 } else {
-                    setColor(mBinding.textViewPasswordConditions4, colorIdForNotValid)
+                    setColor(mBinding.textViewPasswordConditions4, COLOR_ID_FOR_INVALID)
 
                     result = false
 
@@ -271,11 +267,11 @@ class RegisterActivity : AppCompatActivity() {
 
                 if (dataUsersPassword.length >= MIN_PASSWORD_LENGTH) {
 
-                    setColor(mBinding.textViewPasswordConditions5, colorIdForValid)
+                    setColor(mBinding.textViewPasswordConditions5, COLOR_ID_FOR_VALID)
 
                     result = true
                 } else {
-                    setColor(mBinding.textViewPasswordConditions5, colorIdForNotValid)
+                    setColor(mBinding.textViewPasswordConditions5, COLOR_ID_FOR_INVALID)
 
                     result = false
 
@@ -320,20 +316,44 @@ class RegisterActivity : AppCompatActivity() {
                             view.error = null
                             emptyTag = true
                         }
-                        //Toast.makeText(this@RegisterActivity, text, Toast.LENGTH_SHORT).show()
-
                         return emptyTag
 
 
                     }
 
-                    fun isPhoneNumberFilled():Boolean {
-                        return phoneNumber.length == TELEPHONE_NUMBER_LENGTH && phoneNumber.startsWith('5')
+                    fun isPhoneNumberFilledValid():Boolean {
+
+                        var result = false
+
+                        if (Patterns.PHONE.matcher(phoneNumber).matches()){
+                            result = true
+                        }else{
+                            mBinding.registerActivityEditTextUserTelephoneNumber.error = getString(R.string.login_invalid_phone_number)
+                        }
+
+                        return result
                     }
 
-                    fun isPasswordFieldsIsFulled():Boolean {
+                    fun isPasswordFieldsIsFilledValid():Boolean {
 
                         return password.isNotEmpty() && confirmPassword.isNotEmpty()
+                    }
+
+                    fun isEmailFormatValid():Boolean {
+
+                        var result = false
+
+                        if(Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+
+                            result = true
+
+                        }else{
+                            mBinding.registerActivityEditTextUserEmail.error = getString(R.string.login_invalid_email)
+                            result = false
+
+                        }
+
+                        return result
                     }
 
 
@@ -344,13 +364,16 @@ class RegisterActivity : AppCompatActivity() {
                         isFieldEmpty(lastName, viewOfLastName) &&
                         isFieldEmpty(email, viewOfEmail) &&
                         isFieldEmpty(phoneNumber, viewOfPhoneNumber)&&
-                        isPhoneNumberFilled()
+                        isPhoneNumberFilledValid()
 
-                    val phoneNumberIsFilled = isPhoneNumberFilled()
 
-                    val passwordFieldsIsFilled = isPasswordFieldsIsFulled()
+                    val phoneNumberIsFilledValid = isPhoneNumberFilledValid()
+
+                    val passwordFieldsIsFilledValid = isPasswordFieldsIsFilledValid()
 
                     val passwordConditions = passwordTag
+
+                    val emailFormat = isEmailFormatValid()
 
                    //val checkBoxCondition = mBinding.checkBox.isChecked
 
@@ -360,8 +383,9 @@ class RegisterActivity : AppCompatActivity() {
                         passwordMatch &&
                         passwordConditions &&
                         allFieldIsFilled &&
-                        phoneNumberIsFilled &&
-                        passwordFieldsIsFilled ){
+                        phoneNumberIsFilledValid &&
+                        passwordFieldsIsFilledValid &&
+                        emailFormat){
                         true
 
                     }else{
@@ -370,16 +394,6 @@ class RegisterActivity : AppCompatActivity() {
 
 
                     mBinding.registerActivityRegisterButton.isEnabled = emptyTag
-
-
-
-//                    if(emptyTag && checkBoxCondition){
-//                        mBinding.registerActivityRegisterButton.isEnabled = true
-//
-//                    }else{
-//                        mBinding.registerActivityRegisterButton.isEnabled = false
-//                    }
-
 
 
                 }
@@ -403,28 +417,57 @@ class RegisterActivity : AppCompatActivity() {
 
     }
 
+    private fun alertDialogSignUpSuccessful(){
+
+        val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+
+        val view = layoutInflater.inflate(R.layout.custom_dialog_signup_successful, null)
+
+        val alert = MaterialAlertDialogBuilder(this)
+            .setBackground(getDrawable(R.drawable.transparent))
+            .setView(view)
+
+        val dialog = alert.create()
+
+        val button = view.findViewById<Button>(R.id.button)
+        button.setOnClickListener{startActivity(intent)}
+
+        dialog.show()
+
+
+
+
+    }
+
     private fun signUp(){
-        val dataUserEmail = viewOfEmail.text.toString()
-        val dataUserPassword = viewOfPassword.text.toString()
+        val email = viewOfEmail.text.toString()
+        val password = viewOfPassword.text.toString()
 
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this@RegisterActivity){
+            task ->
+            if (task.isSuccessful){
+                auth.currentUser!!.sendEmailVerification().addOnCompleteListener(this){taskVerification ->
+                    if(taskVerification.isSuccessful){
+                        insertUserInfoFireBaseDatabase()
+                        alertDialogSignUpSuccessful()
+                    }else{
 
-        auth.createUserWithEmailAndPassword(dataUserEmail , dataUserPassword).addOnCompleteListener(
-           this ){task ->
-            if(task.isSuccessful){
-                Toast.makeText(this, "SignUp successful", Toast.LENGTH_LONG).show()
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
+                        Toast.makeText(this, "SignUp failed" + task.exception!!.message, Toast.LENGTH_LONG).show()
+
+                    }
+                }
             }else{
                 Toast.makeText(this, "SignUp failed" + task.exception!!.message, Toast.LENGTH_LONG).show()
 
 
             }
         }
+
     }
 
 
 
-    private fun insertFireBaseDatabase(){
+    private fun insertUserInfoFireBaseDatabase(){
 
         val dataUsersFirstName = viewOfFirstName.text.toString()
         val dataUsersMiddleName = viewOfMiddleName.text.toString()
@@ -451,29 +494,9 @@ class RegisterActivity : AppCompatActivity() {
 
         }
 
-        signUp()
 
 
     }
-
-//    private fun scrollChangeListener(){
-//
-//        val maDialogView = layoutInflater.inflate(R.layout.dialog_member_ship_agreement, null)
-//
-//        val scrollView : ScrollView = maDialogView.findViewById<ScrollView?>(R.id.scrollViewMembershipAgreement)
-//        val view = scrollView.getChildAt(scrollView.childCount - 1)
-//
-//        val bottomDetector = view.bottom - (scrollView.height + scrollView.scrollY)
-//
-//        if(bottomDetector == 0){
-//            Toast.makeText(this, "Scroll View bottom reached",Toast.LENGTH_SHORT).show()
-//        }
-//
-//    }
-
-
-
-
 
 
 
@@ -490,21 +513,13 @@ class RegisterActivity : AppCompatActivity() {
 
 
 
-        var positiveButton = maDialogView.findViewById<Button>(R.id.accept_button)
-                positiveButton.setOnClickListener{alertDialogProtectionOfPersonalData()}
+        val positiveButton = maDialogView.findViewById<Button>(R.id.accept_button)
+        positiveButton.setOnClickListener{alertDialogProtectionOfPersonalData()}
 
         val negativeButton = maDialogView.findViewById<Button>(R.id.cancel_button)
         negativeButton.setOnClickListener{dialog.dismiss()}
 
 
-
-//            .setNegativeButton(R.string.cancel_button) { dialog, _ ->
-//                dialog.dismiss()
-//            }
-//            .setPositiveButton(R.string.accept_button) { _, _ ->
-//                alertDialogProtectionOfPersonalData()
-//            }.create()
-//
         dialog.show()
 
 
@@ -543,34 +558,33 @@ class RegisterActivity : AppCompatActivity() {
 
         val popdDialogView = layoutInflater.inflate(R.layout.dialog_protection_of_personal_data, null)
 
-        val webViewProtectionPersonalDAta: WebView = popdDialogView.findViewById(R.id.webViewProtectionOfPersonalData)
+        val webViewProtectionPersonalData: WebView = popdDialogView.findViewById(R.id.webViewProtectionOfPersonalData)
 
         val alert = MaterialAlertDialogBuilder(this)
             .setView(popdDialogView)
         val dialog = alert.create()
-//            dialog.setCancelable(false)
 
         val negativeButton = popdDialogView.findViewById<Button>(R.id.cancel_button)
         negativeButton.setOnClickListener{dialog.dismiss()}
 
         val positiveButton = popdDialogView.findViewById<Button>(R.id.accept_button)
-        positiveButton.setOnClickListener{insertFireBaseDatabase()}
+        positiveButton.setOnClickListener{signUp()}
 
         dialog.show()
 
 
-        webViewProtectionPersonalDAta.settings.javaScriptEnabled = true
+        webViewProtectionPersonalData.settings.javaScriptEnabled = true
 
 
 
         positiveButton.isEnabled = false
-        webViewProtectionPersonalDAta.addJavascriptInterface( WebAppInterface(this, positiveButton ), "Android");
+        webViewProtectionPersonalData.addJavascriptInterface( WebAppInterface(this, positiveButton ), "Android");
 
 
-        webViewProtectionPersonalDAta.setWebViewClient(object : WebViewClient() {
+        webViewProtectionPersonalData.setWebViewClient(object : WebViewClient() {
             override fun onPageFinished(view: WebView, url: String) {
                 super.onPageFinished(view, url)
-                webViewProtectionPersonalDAta.loadUrl(
+                webViewProtectionPersonalData.loadUrl(
                     "javascript:(function() { " +
                             "window.onscroll = function() { " +
                             "    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) { " +
@@ -582,50 +596,41 @@ class RegisterActivity : AppCompatActivity() {
             }
         })
 
-        webViewProtectionPersonalDAta.loadUrl(PROTECTION_PERSONAL_DATA_URL)
+        webViewProtectionPersonalData.loadUrl(PROTECTION_PERSONAL_DATA_URL)
 
 
     }
 
 
+    private fun alreadyHaveAnAccountTextClicked(){
 
-
-
-        //        webViewProtectionPersonalDAta.webViewClient = WebViewClient()
-
-//            .setNegativeButton(R.string.cancel_button) { dialog, _ ->
-//                dialog.dismiss()
-//            }
-//            .setPositiveButton(R.string.accept_button) {_,_ ->
-//                insertFireBaseDatabase()
-//            }.create()
-//            .show()
-
-
-
-
-
-
+        val intent = Intent(this, LoginActivity::class.java)
+        mBinding.textViewNavigateLoginPage.setOnClickListener{startActivity(intent)}
+    }
 
     private fun registerButtonClicked() {
 
-        Toast.makeText(this,"button clicked", Toast.LENGTH_LONG).show()
 
         mBinding.registerActivityRegisterButton.apply {
             setOnClickListener { alertDialogMemberShipAgreement()}
         }
     }
 
-    private fun navigateLoginPage(){
+    private fun initListeners(){
+        fieldsTextWatcher()
+        confirmPasswordTextChangeListener()
+        passwordTextChangeListener()
+
+    }
+
+    private fun backButtonClicked(){
+
         val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
+
+        mBinding.backButton.setOnClickListener{startActivity(intent)}
+
     }
 
-    private fun alreadyHaveAnAccountTextClicked(){
-
-
-        mBinding.textViewNavigateLoginPage.setOnClickListener{navigateLoginPage()}
-    }
 
     private fun initialize(){
         initBinding()
@@ -634,6 +639,7 @@ class RegisterActivity : AppCompatActivity() {
         initListeners()
         registerButtonClicked()
         alreadyHaveAnAccountTextClicked()
+        backButtonClicked()
 
     }
 

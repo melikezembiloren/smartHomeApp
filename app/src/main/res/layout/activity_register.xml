@@ -41,6 +41,22 @@
     tools:context=".login.RegisterActivity">
 
 
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?android:selectableItemBackground"
+        android:contentDescription="@string/content_description_back_button"
+        android:src="@drawable/icon_arrow_back_onsurface"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.017">
+
+    </ImageButton>
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
@@ -95,7 +111,7 @@
                 android:id="@+id/registerActivityEditTextUserFirstName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/shape_edit_text_login"
+                android:background="@drawable/shape_edit_text"
                 android:inputType="textPersonName"
                 android:fontFamily="@font/poppinsmedium"
                 android:textColor="@color/white"
@@ -128,7 +144,7 @@
                 android:id="@+id/registerActivityEditTextUserMiddleName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/shape_edit_text_login"
+                android:background="@drawable/shape_edit_text"
                 android:inputType="textPersonName"
                 android:fontFamily="@font/poppinsmedium"
                 android:textColor="@color/white"
@@ -165,7 +181,7 @@
                 android:id="@+id/registerActivityEditTextUserLastName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/shape_edit_text_login"
+                android:background="@drawable/shape_edit_text"
                 android:fontFamily="@font/poppinsmedium"
                 android:textColor="@color/white"
                 tools:layout_editor_absoluteX="36dp"
@@ -202,7 +218,7 @@
                 android:id="@+id/registerActivityEditTextUserEmail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/shape_edit_text_login"
+                android:background="@drawable/shape_edit_text"
                 android:fontFamily="@font/poppinsmedium"
                 android:textColor="@color/white"
                 tools:layout_editor_absoluteX="36dp"
@@ -239,7 +255,7 @@
                 android:id="@+id/registerActivityEditTextUserTelephoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_edit_text_login"
+                android:background="@drawable/shape_edit_text"
                 android:fontFamily="@font/poppinsmedium"
                 android:textColor="@color/white"
                 android:inputType="phone"
@@ -277,7 +293,7 @@
                 android:id="@+id/registerActivityEditTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/shape_edit_text_login"
+                android:background="@drawable/shape_edit_text"
                 android:fontFamily="@font/poppinsmedium"
                 android:textColor="@color/white"
                 android:inputType="textPassword"
@@ -366,7 +382,7 @@
                 android:id="@+id/registerActivityEditTextUserConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/shape_edit_text_login"
+                android:background="@drawable/shape_edit_text"
                 android:fontFamily="@font/poppinsmedium"
                 android:textColor="@color/white"
                 android:inputType="textPassword"

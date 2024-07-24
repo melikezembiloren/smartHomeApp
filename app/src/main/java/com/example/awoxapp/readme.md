@@ -163,4 +163,18 @@
 //    }
 
 
-
+-------------------
+//    private fun scrollChangeListener(){
+//
+//        val maDialogView = layoutInflater.inflate(R.layout.dialog_member_ship_agreement, null)
+//
+//        val scrollView : ScrollView = maDialogView.findViewById<ScrollView?>(R.id.scrollViewMembershipAgreement)
+//        val view = scrollView.getChildAt(scrollView.childCount - 1)
+//
+//        val bottomDetector = view.bottom - (scrollView.height + scrollView.scrollY)
+//
+//        if(bottomDetector == 0){
+//            Toast.makeText(this, "Scroll View bottom reached",Toast.LENGTH_SHORT).show()
+//        }
+//
+//    }

@@ -99,9 +99,23 @@
     <string name="login_empty_password">Şifre boş bırakılamaz.</string>
     <string name="login_empty_email">E-posta alanı boş bırakılamaz.</string>
     <string name="login_invalid_email">Lütfen geçerli bir e-posta adresi giriniz.</string>
+    <string name="login_invalid_phone_number">Lütfen geçerli bir telefon numarası giriniz.</string>
 
     <string name="reset_password_button">Şifremi yenile</string>
     <string name="reset_password_text">Şifrenizi yenilemek istediğiniz e-posta adresini yazınız.</string>
+
+    <string name="go_back">Giriş ekranına geri dön</string>
+
+    <string name="signup_succesful_title">Kayıt Başarılı</string>
+    <string name="signup_succesful_message">Doğrulama için posta kutunuzu kontrol edin</string>
+
+
+
+    <string name="email_verificaiton_not_completed_button">Doğrulama linki gönder</string>
+    <string name="email_verificaiton_not_completed_message">E-posta Doğrulanmadı</string>
+    <string name="okey">Tamam</string>
+
+
 
 
 

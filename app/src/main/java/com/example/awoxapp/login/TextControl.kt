@@ -1,5 +1,6 @@
 package com.example.awoxapp.login
 
+
 open class TextControl {
 
       companion object { //nesne oluşturmaya gerek kalmadan erişilebilirler
@@ -8,7 +9,6 @@ open class TextControl {
         val patternForLowerCase = ("\\p{Ll}")
         val patternForSymbols = ("[! @ # $ % ^ & * ( ) _ + = [ ] { }  | ; : '  , . / < > ? ]")
         val patternForNumbers = ("\\p{Nd}")
-
 
         fun textControlForUpperCase(text: String): Boolean {
 
@@ -21,7 +21,10 @@ open class TextControl {
 
             return result
 
+
         }
+
+
 
         fun textControlForLowerCase(text: String): Boolean {
 
