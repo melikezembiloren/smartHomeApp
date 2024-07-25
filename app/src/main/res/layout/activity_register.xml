@@ -221,6 +221,7 @@
                 android:background="@drawable/shape_edit_text"
                 android:fontFamily="@font/poppinsmedium"
                 android:textColor="@color/white"
+                android:text="mzembiloren@outlook.com"
                 tools:layout_editor_absoluteX="36dp"
                 tools:layout_editor_absoluteY="602dp" />
 

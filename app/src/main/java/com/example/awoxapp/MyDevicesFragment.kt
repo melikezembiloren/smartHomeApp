@@ -1,48 +1,45 @@
 package com.example.awoxapp
 
 import android.content.Intent
-import android.icu.text.Transliterator.Position
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.awoxapp.Repository.database.DevicesDataBase
-import com.example.awoxapp.Repository.entity.Devices
-import com.example.awoxapp.Repository.repository.DevicesViewModel
 import com.example.awoxapp.adapter.RecyclerViewAdapter
 import com.example.awoxapp.data.DeviceList
-import com.example.awoxapp.databinding.ActivityMainBinding
-import com.example.awoxapp.login.RegisterActivity
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.example.awoxapp.databinding.FragmentMyDevicesBinding
 import kotlin.concurrent.thread
 
+class MyDevicesFragment : Fragment() {
 
-class MainActivity : AppCompatActivity(){
-
-    private lateinit var mBinding: ActivityMainBinding
+    private lateinit var mBinding: FragmentMyDevicesBinding
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var rvAdapter: RecyclerViewAdapter
     private lateinit var db : DevicesDataBase
 
+    private fun initDb(){
 
-    private fun initDB()
-    {
-        db = DevicesDataBase.getDeviceDataBase(this)
+        db = DevicesDataBase.getDeviceDataBase(requireContext())
     }
 
-    private fun initBinding(){
+    private fun initRecyclerView(){
 
-        mBinding = DataBindingUtil.setContentView(this@MainActivity, R.layout.activity_main)
+        mRecyclerView = mBinding.recyclerView
+        mRecyclerView.setHasFixedSize(true)
+        mRecyclerView.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
+        rvAdapter = RecyclerViewAdapter(requireContext(), DeviceList.deviceObjectList)
+        mRecyclerView.adapter = rvAdapter
+        savedDevicesPopUpMenuClicked()
+
     }
 
 
@@ -54,18 +51,24 @@ class MainActivity : AppCompatActivity(){
 
 
         val  thread = thread {
-                devicesDao.deleteDevice(device)
-                Log.d("main activity", "thread")
-                DeviceList.deviceObjectList.removeAt(position)
-            }
+            devicesDao.deleteDevice(device)
+            Log.d("main activity", "thread")
+            DeviceList.deviceObjectList.removeAt(position)
+        }
 
 
         thread.join()//threadın bitmesini bekler
 
     }
 
+    private fun navigateSavedDevicesSettingsActivity(){
+        val intent = Intent(requireContext(), SavedDevicesSettingsActivity::class.java)
+        startActivity(intent)
+    }
+
+
     private fun savedDevicesPopUpMenu(position: Int, view: View){
-        val popupMenu = android.widget.PopupMenu(this@MainActivity, view)
+        val popupMenu = android.widget.PopupMenu(requireContext(), view)
         popupMenu.menuInflater.inflate(R.menu.saved_device_popup, popupMenu.menu)
         popupMenu.show()
         popupMenu.setOnMenuItemClickListener { item: MenuItem? ->
@@ -84,48 +87,17 @@ class MainActivity : AppCompatActivity(){
 
     }
 
-
     private fun savedDevicesPopUpMenuClicked(){
 
         val popUpMenuClickListener = object : RecyclerViewAdapter.OnPopUpMenuClickListener {
             override fun onMenuClicked(position: Int, view: View) {
                 savedDevicesPopUpMenu(position,view)
 
-              //  Toast.makeText(this@MainActivity, "ONCLİCK $position", Toast.LENGTH_LONG).show()
+                //  Toast.makeText(this@MainActivity, "ONCLİCK $position", Toast.LENGTH_LONG).show()
             }
         }
         rvAdapter.setOnPopUpMenuClickListener(popUpMenuClickListener)
     }
-
-    /**private fun initSavedDevicesPopUpMenu(){
-
-        val popUpMenuItemClickListener = object : RecyclerViewAdapter.OnPopUpMenuItemClickListener {
-            override fun onMenuItemClicked(position: Int) {
-                Toast.makeText(this@MainActivity, "Delete clicked for position: $position", Toast.LENGTH_SHORT).show()
-
-            }
-        }
-
-        rvAdapter.setOnPopUpMenuItemClickListener(popUpMenuItemClickListener)
-    }**/
-
-
-    private fun navigateSavedDevicesSettingsActivity(){
-        val intent = Intent(this, SavedDevicesSettingsActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun initRecyclerView(){
-
-        mRecyclerView = mBinding.recyclerView
-        mRecyclerView.setHasFixedSize(true)
-        mRecyclerView.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
-        rvAdapter = RecyclerViewAdapter(this, DeviceList.deviceObjectList)
-        mRecyclerView.adapter = rvAdapter
-        savedDevicesPopUpMenuClicked()
-
-    }
-
 
     private fun list() {
 
@@ -138,13 +110,8 @@ class MainActivity : AppCompatActivity(){
 
 
 
-            Log.d("Main Activity", "in thread")
-
-            runOnUiThread {
-                Log.d("Main Activity", "outside thread")
-
-                Toast.makeText(
-                    this,
+            Toast.makeText(
+                    requireContext(),
                     mRecyclerView.adapter?.itemCount.toString(),
                     Toast.LENGTH_SHORT
                 ).show()
@@ -174,14 +141,21 @@ class MainActivity : AppCompatActivity(){
                 }
                 rvAdapter.notifyDataSetChanged()
             }
-        }
+
 
         t.start()
 
     }
 
+    private fun navigateDeviceCategoriesPage() {
+
+        val intent = Intent(requireContext(), AddDeviceActivity::class.java)
+        startActivity(intent)
+    }
+
+
     private fun showAddDevicePopUpMenu() {
-        val popup = PopupMenu(this, mBinding.addDeviceButton)
+        val popup = PopupMenu(requireContext(), mBinding.addDeviceButton)
 
         popup.menuInflater.inflate(R.menu.add_device_menu_button, popup.menu)
         popup.setOnMenuItemClickListener { item: MenuItem? ->
@@ -192,7 +166,7 @@ class MainActivity : AppCompatActivity(){
                 }
 
                 R.id.header2 -> {
-                    Toast.makeText(this@MainActivity, item.title, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), item.title, Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -203,43 +177,35 @@ class MainActivity : AppCompatActivity(){
         popup.show()
     }
 
-
     private fun addDeviceButtonClicked() {
 
         mBinding.addDeviceButton.setOnClickListener { showAddDevicePopUpMenu() }
 
     }
 
-    private fun navigateDeviceCategoriesPage() {
 
-        val intent = Intent(this@MainActivity, AddDeviceActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun initialize() {
-
-        initDB()
-        initBinding()
+    private fun initialize(){
+        initDb()
         initRecyclerView()
-
+        list()
         addDeviceButtonClicked()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // setContentView(R.layout.activity_main)
 
+
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_devices, container, false)
 
         initialize()
 
+        return mBinding.root
+
     }
 
-    override fun onStart() {
-        list()
-        super.onStart()
-    }
 }
-
-
-
-

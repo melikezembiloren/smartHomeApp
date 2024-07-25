@@ -10,6 +10,7 @@ import android.text.Spanned
 import android.text.SpannedString
 import android.text.TextWatcher
 import android.text.style.UnderlineSpan
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.webkit.WebView
@@ -24,6 +25,7 @@ import androidx.compose.foundation.shape.ZeroCornerSize
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
+import com.example.awoxapp.AddDeviceActivity
 import com.example.awoxapp.MainActivity
 import com.example.awoxapp.R
 import com.example.awoxapp.databinding.ActivityRegisterBinding
@@ -34,6 +36,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.database.FirebaseDatabase
 import org.intellij.lang.annotations.Pattern
+import kotlin.concurrent.thread
 import kotlin.properties.Delegates
 
 
@@ -430,7 +433,7 @@ class RegisterActivity : AppCompatActivity() {
         val dialog = alert.create()
 
         val button = view.findViewById<Button>(R.id.button)
-        button.setOnClickListener{startActivity(intent)}
+        button.setOnClickListener{ auth.signOut(); startActivity(intent)}
 
         dialog.show()
 
@@ -450,11 +453,14 @@ class RegisterActivity : AppCompatActivity() {
                     if(taskVerification.isSuccessful){
                         insertUserInfoFireBaseDatabase()
                         alertDialogSignUpSuccessful()
+
+
                     }else{
 
                         Toast.makeText(this, "SignUp failed" + task.exception!!.message, Toast.LENGTH_LONG).show()
 
                     }
+
                 }
             }else{
                 Toast.makeText(this, "SignUp failed" + task.exception!!.message, Toast.LENGTH_LONG).show()
@@ -462,6 +468,22 @@ class RegisterActivity : AppCompatActivity() {
 
             }
         }
+
+//        thread{
+//            Log.d("THREAD","thread")
+//            while (true){
+//                if (auth.currentUser!!.isEmailVerified){
+//                    runOnUiThread {
+//                        Log.d("THREAD","verified")
+//                        startActivity(Intent(this@RegisterActivity, AddDeviceActivity::class.java))
+//                    }
+//
+//                    Thread.sleep(500)
+//
+//                    break;
+//                }
+//            }
+//        }
 
     }
 
@@ -612,7 +634,7 @@ class RegisterActivity : AppCompatActivity() {
 
 
         mBinding.registerActivityRegisterButton.apply {
-            setOnClickListener { alertDialogMemberShipAgreement()}
+            setOnClickListener {alertDialogMemberShipAgreement()}
         }
     }
 

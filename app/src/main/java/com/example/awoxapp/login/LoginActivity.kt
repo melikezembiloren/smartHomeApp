@@ -17,6 +17,7 @@ import com.example.awoxapp.databinding.ActivityLoginBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
 
 class LoginActivity : AppCompatActivity() {
@@ -51,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
 
 
 
-    private fun emailVerificationINotCompletedAlertDialog(){
+    private fun emailVerificationINotCompletedAlertDialog(currentUser: FirebaseUser){
 
         val view = layoutInflater.inflate(R.layout.custom_dialog_verification_not_completed, null)
 
@@ -66,10 +67,11 @@ class LoginActivity : AppCompatActivity() {
         button1.setOnClickListener{dialog.dismiss()}
 
         val button2 = view.findViewById<Button>(R.id.button2)
-        button2.setOnClickListener{auth.currentUser!!.sendEmailVerification().addOnCompleteListener(this){
+        button2.setOnClickListener{dialog.dismiss()
+            currentUser.sendEmailVerification().addOnCompleteListener(this){
                 task ->
             if(task.isSuccessful){
-                AlertDialog.Builder(this)
+                MaterialAlertDialogBuilder(this)
                     .setMessage("Doğrulama linki gönderildi, gelen kutunuzu kontrol edin")
                     .setNeutralButton("Tamam"){_,_ ->}
                     .create()
@@ -94,13 +96,16 @@ class LoginActivity : AppCompatActivity() {
 
             if (password.isNotEmpty()) {
 
-                if(auth.currentUser!!.isEmailVerified) {
-
-                    auth.signInWithEmailAndPassword(email, password)
+                auth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(this) { task ->
                             if (task.isSuccessful) {
                                 Toast.makeText(this, "Login successful", Toast.LENGTH_LONG).show()
-                                navigateMainActivity()
+                                if (auth.currentUser!!.isEmailVerified){
+                                    navigateMainActivity()
+                                }else{
+                                    emailVerificationINotCompletedAlertDialog(auth.currentUser!!)
+                                    auth.signOut()
+                                }
                             } else {
                                 Toast.makeText(this, "Login: Failure", Toast.LENGTH_LONG).show()
                                 mBinding.textViewLoginFailure.isVisible = true
@@ -109,9 +114,7 @@ class LoginActivity : AppCompatActivity() {
 
 
                         }
-                }else{
-                    emailVerificationINotCompletedAlertDialog()
-                }
+//
 
             }else{
                 mBinding.editTextLoginPassword.error = getString(R.string.login_empty_password)

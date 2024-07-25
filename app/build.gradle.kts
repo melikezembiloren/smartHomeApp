@@ -60,7 +60,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.firebase.database)
     implementation(libs.androidx.foundation.android)
-    val room_version = "2.6.1"
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -72,7 +72,14 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+
+    val room_version = "2.6.1"
+    val desugaring_version = "2.0.4"
+    val glide_version = "4.16.0"
+    val firebase_version = "33.1.2"
+    val nav_version = "2.7.7"
+
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:$desugaring_version")
 
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
@@ -80,14 +87,14 @@ dependencies {
     kapt("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
 
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
+    implementation ("com.github.bumptech.glide:glide:$glide_version")
+    annotationProcessor ("com.github.bumptech.glide:compiler:$glide_version")
 
-    implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
-
-    // Add the dependency for the Firebase Authentication library
-    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation(platform("com.google.firebase:firebase-bom:$firebase_version"))
     implementation("com.google.firebase:firebase-auth")
+
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
 
 

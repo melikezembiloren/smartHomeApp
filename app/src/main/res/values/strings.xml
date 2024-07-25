@@ -110,13 +110,17 @@
     <string name="signup_succesful_message">Doğrulama için posta kutunuzu kontrol edin</string>
 
 
-
     <string name="email_verificaiton_not_completed_button">Doğrulama linki gönder</string>
+    <string name="email_verification_link_is_send_title">Doğrulama linki gönderildi</string>
     <string name="email_verificaiton_not_completed_message">E-posta Doğrulanmadı</string>
     <string name="okey">Tamam</string>
 
-
-
+    <string name="home">Ana Sayfa</string>
+    <string name="devices">Cihazlar</string>
+    <string name="shopping">Mağaza</string>
+    <string name="account">Profil</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

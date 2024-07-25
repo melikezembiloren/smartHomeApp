@@ -23,7 +23,7 @@
             android:id="@+id/list_item_cardview"
             style="?attr/materialCardViewOutlinedStyle"
             app:layout_constraintDimensionRatio="1:1"
-            app:cardBackgroundColor="@color/md_theme_surfaceContainer"
+            app:cardBackgroundColor="@color/md_theme_onPrimary"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
