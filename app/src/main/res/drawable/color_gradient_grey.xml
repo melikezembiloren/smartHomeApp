@@ -10,4 +10,6 @@
             android:endColor="#BCBDC3"
             android:centerColor="#D7D7DC"
             android:angle="90" />
+
+
     </shape>

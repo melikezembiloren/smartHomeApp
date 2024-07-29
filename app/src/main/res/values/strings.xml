@@ -119,6 +119,13 @@
     <string name="devices">Cihazlar</string>
     <string name="shopping">Mağaza</string>
     <string name="account">Profil</string>
+
+    <string name="buy_now">Satın Alın</string>
+
+    <string name="store_tv">Televizyon</string>
+    <string name="store_small_appliances">Küçük Ev Aletleri</string>
+    <string name="store_white_goods">Beyaz Eşya</string>
+    <string name="store_heaters">Isıtıcı</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

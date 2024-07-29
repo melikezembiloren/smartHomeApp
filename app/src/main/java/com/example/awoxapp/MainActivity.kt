@@ -216,6 +216,18 @@ class MainActivity : AppCompatActivity(){
         startActivity(intent)
     }
 
+    private fun navigationBottomMyDevicesClicked(){
+
+        val intent = Intent(this@MainActivity, MyDevicesActivity::class.java)
+        mBinding.myDevicesActivityButton.setOnClickListener{startActivity(intent)}
+    }
+
+    private fun navigationBottomStoreButtonClicked()
+    {
+        val intent = Intent(this@MainActivity, StoreActivity::class.java)
+        mBinding.storeActivityButton.setOnClickListener{startActivity(intent)}
+    }
+
     private fun initialize() {
 
         initDB()
@@ -223,6 +235,9 @@ class MainActivity : AppCompatActivity(){
         initRecyclerView()
 
         addDeviceButtonClicked()
+
+        navigationBottomMyDevicesClicked()
+        navigationBottomStoreButtonClicked()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
