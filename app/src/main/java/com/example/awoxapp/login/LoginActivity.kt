@@ -19,6 +19,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
+import com.google.firebase.initialize
 
 class LoginActivity : AppCompatActivity() {
 
@@ -90,6 +91,8 @@ class LoginActivity : AppCompatActivity() {
 
         val email = mBinding.loginEmail.toString()
         val password = mBinding.loginPass.toString()
+
+
 
 
         if(email.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()){

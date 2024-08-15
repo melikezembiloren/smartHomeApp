@@ -14,7 +14,10 @@ import com.example.awoxapp.databinding.ActivityOtherDevicesBinding
 import com.example.awoxapp.databinding.ActivityStoreBinding
 import com.example.awoxapp.login.LoginActivity
 import com.example.awoxapp.login.RegisterActivity
+import com.example.awoxapp.storeFragments.FragmentStoreHeaters
+import com.example.awoxapp.storeFragments.FragmentStoreSmallAppliances
 import com.example.awoxapp.storeFragments.FragmentStoreTV
+import com.example.awoxapp.storeFragments.FragmentStoreWhiteGoods
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -59,9 +62,9 @@ class StoreActivity : AppCompatActivity() {
         backButtonClicked()
 
         buyNowClicked(mBinding.buyNowButtonTv, FragmentStoreTV(), "Fragment Store TV")
-        buyNowClicked(mBinding.buyNowButtonSmallAppliances, FragmentStoreTV(), "Fragment Store Small Appliances")
-        buyNowClicked(mBinding.buyNowButtonWhiteGoods, FragmentStoreTV(), "Fragment Store White Goods")
-        buyNowClicked(mBinding.buyNowButtonHeaters, FragmentStoreTV(), "Fragment Store Heaters")
+        buyNowClicked(mBinding.buyNowButtonSmallAppliances, FragmentStoreSmallAppliances(), "Fragment Store Small Appliances")
+        buyNowClicked(mBinding.buyNowButtonWhiteGoods, FragmentStoreWhiteGoods(), "Fragment Store White Goods")
+        buyNowClicked(mBinding.buyNowButtonHeaters, FragmentStoreHeaters(), "Fragment Store Heaters")
 
         navigationBottomHomeClicked()
         navigationBottomMyDevicesButtonClicked()

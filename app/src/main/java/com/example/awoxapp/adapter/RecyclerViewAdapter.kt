@@ -1,18 +1,18 @@
 package com.example.awoxapp.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.awoxapp.R
 import com.example.awoxapp.Repository.entity.Devices
+import com.example.awoxapp.detailedDevicesActivity.controlTvActivity
 
 class RecyclerViewAdapter(private val context: Context, val dataItemList: ArrayList<Devices>):
 RecyclerView.Adapter<RecyclerViewAdapter.DataListViewHolder>() //böylece adapter özelliğini alan bir sınıf oldu.
@@ -81,6 +81,29 @@ RecyclerView.Adapter<RecyclerViewAdapter.DataListViewHolder>() //böylece adapte
 
           //  Toast.makeText(context, "adapter $position", Toast.LENGTH_LONG).show()
             menuClickListener!!.onMenuClicked(position, holder.verticalDots)
+        }
+
+        holder.itemView.setOnClickListener{
+
+            val deviceType = dataItemList[position].typeOfSavedDevice
+            try{
+
+                val intent =
+                    when(deviceType) {
+                        "Televizyon" -> Intent(context, controlTvActivity::class.java).apply {
+                            putExtra("DEVICE_NAME", dataItemList[position].nameOfSavedDevice)
+                        }
+                        else -> null
+                    }
+
+                intent?.let {
+                    context.startActivity(it)
+                }
+
+
+            }catch (e: Exception){
+                Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
+            }
         }
 
 
