@@ -3,24 +3,20 @@
 
     <item
         android:id="@+id/bottom1"
-        android:icon="@drawable/icon_home_outlined_black"
-        android:title="@string/home" />
+        android:icon="@drawable/icon_control"
+        android:title="@string/tv_remote_control_bottom_control" />
 
     <item
         android:id="@+id/bottom2"
-        android:icon="@drawable/icon_squares_outlined_black"
-        android:title="@string/devices" />
-
-
+        android:icon="@drawable/icon_touchpad"
+        android:title="@string/tv_remote_control_bottom_touchpad" />
 
     <item
         android:id="@+id/bottom3"
-        android:icon="@drawable/icon_store_outlined_black"
-        android:title="@string/shopping" />
+        android:icon="@drawable/icon_settings"
+        android:title="@string/tv_remote_control_bottom_settings" />
 
-    <item
-        android:id="@+id/bottom4"
-        android:icon="@drawable/icon_user_outlined_black"
-        android:title="@string/account" />
+
+
 
 </menu>

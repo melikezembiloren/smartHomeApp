@@ -120,6 +120,10 @@
     <string name="shopping">Mağaza</string>
     <string name="account">Profil</string>
 
+    <string name="tv_remote_control_bottom_control">Kontrol</string>
+    <string name="tv_remote_control_bottom_touchpad">Touchpad</string>
+    <string name="tv_remote_control_bottom_settings">Ayarlar</string>
+
     <string name="buy_now">Satın Alın</string>
 
     <string name="store_tv">Televizyon</string>
@@ -128,6 +132,18 @@
     <string name="store_heaters">Isıtıcı</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="number_keyboard_1">1</string>
+    <string name="number_keyboard_2">2</string>
+    <string name="number_keyboard_3">3</string>
+    <string name="number_keyboard_4">4</string>
+    <string name="number_keyboard_5">5</string>
+    <string name="number_keyboard_6">6</string>
+    <string name="number_keyboard_7">7</string>
+    <string name="number_keyboard_8">8</string>
+    <string name="number_keyboard_9">9</string>
+    <string name="number_keyboard_0">0</string>
 
 
 </resources>

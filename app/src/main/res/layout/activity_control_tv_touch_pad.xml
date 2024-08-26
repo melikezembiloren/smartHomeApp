@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="title"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".detailedDevicesActivity.controlTvTouchpadActivity"
+        tools:layout_editor_absoluteX="-116dp"
+        tools:layout_editor_absoluteY="-8dp">
+
+        <ImageButton
+            android:id="@+id/imageButtonArrowBack"
+            android:layout_width="31dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="25dp"
+            android:background="?android:selectableItemBackground"
+            android:src="@drawable/icon_arrow_back"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintHorizontal_bias="0.02"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView"
+            app:layout_constraintVertical_bias="0.0">
+
+        </ImageButton>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppinsmedium"
+            android:text="@{title}"
+            android:textColor="@color/black"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.069">
+
+        </TextView>
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintVertical_bias="0.014">
+
+            <ImageButton
+                android:id="@+id/imageButtonOff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:selectableItemBackground"
+                android:elevation="50dp"
+                android:src="@drawable/icon_on_off">
+
+            </ImageButton>
+
+            <ImageButton
+                android:id="@+id/imageButtonInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="?android:selectableItemBackground"
+                android:elevation="25dp"
+                android:src="@drawable/icon_input">
+
+            </ImageButton>
+
+            <ImageButton
+                android:id="@+id/imageButtonExit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="?android:selectableItemBackground"
+                android:elevation="25dp"
+                android:src="@drawable/icon_exit">
+
+            </ImageButton>
+
+            <ImageButton
+                android:id="@+id/imageButtonSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="?android:selectableItemBackground"
+                android:elevation="25dp"
+                android:src="@drawable/icon_search">
+
+            </ImageButton>
+
+            <ImageButton
+                android:id="@+id/imageButtonSetting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:selectableItemBackground"
+                android:elevation="25dp"
+                android:src="@drawable/icon_setting">
+
+            </ImageButton>
+        </LinearLayout>
+
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Material3.CardView.Outlined"
+            android:layout_width="345dp"
+            android:layout_height="361dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/color_gradient_grey"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout8"
+            app:layout_constraintVertical_bias="0.0"
+            app:strokeColor="@color/dark_grey">
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <ImageButton
+            android:id="@+id/imageButtonNumberKeyboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="?android:selectableItemBackground"
+            android:src="@drawable/icon_fab_number_keybard"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButtonKeyboard"
+            app:layout_constraintEnd_toStartOf="@+id/imageButtonKeyboard"
+            app:layout_constraintTop_toTopOf="@+id/imageButtonKeyboard"
+            app:layout_constraintVertical_bias="0.0">
+
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/imageButtonKeyboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="?android:selectableItemBackground"
+            android:src="@drawable/icon_fab_word_keyboard"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
+            app:layout_constraintEnd_toEndOf="parent">
+
+        </ImageButton>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="78dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout8"
+            app:layout_constraintVertical_bias="1.0"
+            app:menu="@menu/bottom_navigation_items">
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

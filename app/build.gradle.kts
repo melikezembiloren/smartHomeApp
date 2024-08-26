@@ -98,12 +98,7 @@ dependencies {
 
     implementation("androidx.core:core-splashscreen:1.0.0")
 
-
-
-
-
-
-
+    implementation("com.github.mhiew:android-pdf-viewer:3.2.0-beta.1")
 
 
 }

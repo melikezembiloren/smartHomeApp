@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.awoxapp.R
 import com.example.awoxapp.Repository.entity.Devices
+import com.example.awoxapp.data.DeviceList
 import com.example.awoxapp.detailedDevicesActivity.controlTvActivity
 
 class RecyclerViewAdapter(private val context: Context, val dataItemList: ArrayList<Devices>):
@@ -85,13 +86,24 @@ RecyclerView.Adapter<RecyclerViewAdapter.DataListViewHolder>() //böylece adapte
 
         holder.itemView.setOnClickListener{
 
-            val deviceType = dataItemList[position].typeOfSavedDevice
+
+            val id = dataItemList[position].idOfSavedDevice
+            val type = dataItemList[position].typeOfSavedDevice
+            val imageId = dataItemList[position].imageIdOfSavedDevice
+            val name = dataItemList[position].nameOfSavedDevice
+
+
+
+            val device = Devices(id, type, imageId, name)
+
+
             try{
 
                 val intent =
-                    when(deviceType) {
+                    when(type) {
                         "Televizyon" -> Intent(context, controlTvActivity::class.java).apply {
-                            putExtra("DEVICE_NAME", dataItemList[position].nameOfSavedDevice)
+                            putExtra("DEVICE", device)
+                            putExtra("POSITION", position)
                         }
                         else -> null
                     }

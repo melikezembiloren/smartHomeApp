@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+
 
     <application
         android:allowBackup="true"
@@ -17,9 +20,17 @@
         android:theme="@style/Theme.AWOXapp"
         tools:targetApi="31">
         <activity
+            android:name=".detailedDevicesActivity.ActivityUsingGuide"
+            android:exported="false" />
+        <activity
+            android:name=".detailedDevicesActivity.TvSettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".detailedDevicesActivity.controlTvTouchpadActivity"
+            android:exported="false" />
+        <activity
             android:name=".detailedDevicesActivity.controlTvActivity"
             android:exported="false" />
-
         <activity
             android:name=".AccountActivity"
             android:exported="false" />
