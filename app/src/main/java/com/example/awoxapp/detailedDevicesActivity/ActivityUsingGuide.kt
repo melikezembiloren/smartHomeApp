@@ -19,6 +19,12 @@ class ActivityUsingGuide : AppCompatActivity() {
     private lateinit var mBinding: ActivityUsingGuideBinding
     private lateinit var pdfView: PDFView
 
+
+    private fun backButtonClicked(){
+
+        mBinding.backButton.setOnClickListener { finish() }
+
+    }
     private fun showPDF() {
         pdfView = mBinding.pdfview
 
@@ -114,6 +120,7 @@ class ActivityUsingGuide : AppCompatActivity() {
 //        pdfView()
 
         showPDF()
+        backButtonClicked()
 
 
 

@@ -136,9 +136,12 @@ class TvSettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_tv_settings)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_tv_settings)
 
-        val device = intent.getSerializableExtra("DEVICE") as Devices
+        mBinding.title = intent.getStringExtra("DEVICE_NAME")
 
+        val device = intent.getSerializableExtra("DEVICE") as Devices
         mBinding.title = device.nameOfSavedDevice
+
+        val position = intent.getIntExtra("POSITION", -1)
 
         guideButtonClicked()
 
@@ -152,9 +155,13 @@ class TvSettingsActivity : AppCompatActivity() {
             when (item!!.itemId) {
                 R.id.bottom1 -> {
 
+                    finish()
+
 
                     val intent =  Intent(this, controlTvActivity::class.java).apply {
                         putExtra("DEVICE_NAME", mBinding.title)
+                        putExtra("DEVICE", device)
+                        putExtra("POSITION", position)
                     }
 
 
@@ -166,9 +173,12 @@ class TvSettingsActivity : AppCompatActivity() {
                 }
 
                 R.id.bottom2 -> {
+                    finish()
 
                     val intent = Intent(this, controlTvTouchpadActivity::class.java).apply {
-                        putExtra("DEVICE_NAME", mBinding.title.toString())
+                        putExtra("DEVICE_NAME", mBinding.title)
+                        putExtra("DEVICE", device)
+                        putExtra("POSITION", position)
                     }
 
                     startActivity(intent)
@@ -176,8 +186,12 @@ class TvSettingsActivity : AppCompatActivity() {
                 }
 
                 R.id.bottom3 -> {
+                    finish()
+
                     val intent = Intent(this, TvSettingsActivity::class.java).apply {
-                        putExtra("DEVICE_NAME", mBinding.title.toString())
+                        putExtra("DEVICE_NAME", mBinding.title)
+                        putExtra("DEVICE", device)
+                        putExtra("POSITION", position)
                     }
 
                     startActivity(intent)
@@ -190,8 +204,12 @@ class TvSettingsActivity : AppCompatActivity() {
 
         mBinding.buttonDeleteDevice.setOnClickListener { removeDeviceAlertDialog() }
         mBinding.buttonUpdateDeviceName.setOnClickListener {  changeDeviceNameAlertDialog() }
+        mBinding.imageButtonArrowBack.setOnClickListener { finish() }
+
 
     }
+
+
 
 
 }

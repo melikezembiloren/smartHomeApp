@@ -99,7 +99,7 @@ class controlTvActivity : AppCompatActivity() {
     }
 
     private fun backButtonClicked(){
-        mBinding.imageButtonArrowBack.setOnClickListener{ finish()}
+        mBinding.imageButtonArrowBack.setOnClickListener { finish() }
     }
 
     private fun numberKeyboardButtonClicked(){
@@ -139,9 +139,12 @@ class controlTvActivity : AppCompatActivity() {
             when (item!!.itemId) {
                 R.id.bottom1 -> {
 
+                    finish()
 
                    val intent =  Intent(this, controlTvActivity::class.java).apply {
-                        putExtra("DEVICE_NAME", mBinding.title)
+                       putExtra("DEVICE_NAME", mBinding.title)
+                       putExtra("DEVICE", device)
+                       putExtra("POSITION", position)
                     }
 
 
@@ -153,19 +156,26 @@ class controlTvActivity : AppCompatActivity() {
                 }
 
                 R.id.bottom2 -> {
+                    finish()
 
                     val intent = Intent(this, controlTvTouchpadActivity::class.java).apply {
-                        putExtra("DEVICE_NAME", mBinding.title.toString())
+                        putExtra("DEVICE_NAME", mBinding.title)
+                        putExtra("DEVICE", device)
+                        putExtra("POSITION", position)
+
                     }
 
-                    startActivity(intent)
+                        startActivity(intent)
+
 
                 }
 
                 R.id.bottom3 -> {
 
+                    finish()
 
                     val intent = Intent(this, TvSettingsActivity::class.java).apply {
+                        putExtra("DEVICE_NAME", mBinding.title)
                         putExtra("DEVICE", device)
                         putExtra("POSITION", position)
 

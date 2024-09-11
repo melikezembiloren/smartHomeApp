@@ -6,78 +6,115 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="name"
+            type="String" />
+    </data>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/color_gradient_grey"
+        android:background="@color/white"
         tools:context=".MainActivity">
 
 
-        <TextView
-            android:id="@+id/textView4"
+        <LinearLayout
+            android:id="@+id/linearLayout10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppindbold"
-            android:text="@string/myDevices"
-            android:textColor="@color/md_theme_onSurface_highContrast"
-            android:textSize="25sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="56dp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.151"
+            app:layout_constraintHorizontal_bias="0.069"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.136" />
+            app:layout_constraintVertical_bias="0.074">
 
-        <ImageButton
-            android:id="@+id/addDeviceButton"
-            android:layout_width="65dp"
-            android:layout_height="63dp"
-            android:background="?android:selectableItemBackground"
-            android:contentDescription="@string/content_description_add_button"
-            android:src="@drawable/icon_add_circle"
-            app:layout_constraintBottom_toBottomOf="parent"
+
+            <TextView
+                android:id="@+id/textViewHello"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsregular"
+                android:text="Merhaba,  "
+                android:textColor="@color/md_theme_onSurface_highContrast"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.152"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.076" />
+
+            <TextView
+                android:id="@+id/textViewName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinssemibold"
+                android:text="@{name}"
+                android:textColor="@color/md_theme_onSurface_highContrast"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.152"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.076" />
+
+            <TextView
+                android:id="@+id/textViewEmoji"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinssemibold"
+                android:text=" 👋"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.152"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.076" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:fontFamily="@font/poppinsregular"
+            android:text="Elektronik Cihazlarım"
+            android:textSize="17dp"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.953"
+            app:layout_constraintHorizontal_bias="0.004"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.046">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout10"
+            app:layout_constraintVertical_bias="1.0">
 
-        </ImageButton>
+        </TextView>
 
-        <ScrollView
-            android:id="@+id/scrollView2"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="156dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="150dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="52dp"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0.00001sp"
+            android:orientation="horizontal"
+            android:scrollbars="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4"
-            app:layout_constraintVertical_bias="0.766">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout10"
+            app:layout_constraintVertical_bias="0.181"
+            tools:ignore="ScrollViewSize"
+            tools:listitem="@layout/list_item_main_activity_devices">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="728dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:paddingBottom="150dp"
-                android:clickable="false"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4"
-                app:layout_constraintVertical_bias="0.0"
-                tools:listitem="@layout/list_item_main" />
-
-
-        </ScrollView>
-
-
+        </androidx.recyclerview.widget.RecyclerView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -88,24 +125,26 @@
             android:background="@drawable/shape_bottom_navigation"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/scrollView2"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/scrollView2"
             app:layout_constraintStart_toStartOf="parent">
 
+
             <Button
+                android:id="@+id/homeActivityButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:drawableLeft="@drawable/icon_home_outlined_black"
                 android:text="@string/home"
-                android:textSize="12sp"
+                android:drawableLeft="@drawable/icon_home_outlined_black"
+                android:textSize="14sp"
+                android:backgroundTint="@color/lightest_button"
                 android:textColor="@color/black"
                 android:fontFamily="@font/poppinsmedium"
-                android:backgroundTint="@color/lightest_button"
                 android:layout_weight="2">
 
             </Button>
+
+
 
             <ImageButton
                 android:id="@+id/myDevicesActivityButton"
@@ -116,6 +155,8 @@
                 android:background="?android:selectableItemBackground"
                 android:layout_weight="3">
             </ImageButton>
+
+
 
             <ImageButton
                 android:id="@+id/storeActivityButton"
@@ -140,7 +181,6 @@
 
 
         </LinearLayout>
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

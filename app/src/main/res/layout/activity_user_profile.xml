@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="name"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".profile.userProfileActivity">
+
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/icon_user_profile"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.129"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.094">
+
+        </ImageView>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppinssemibold"
+            android:text="@{name}"
+            android:textAlignment="textStart"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="@+id/imageView2"
+            app:layout_constraintVertical_bias="0.621">
+
+        </TextView>
+
+        <Button
+            android:id="@+id/buttonAccountSettings"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/transparent"
+            android:drawableLeft="@drawable/icon_settings_black"
+            android:drawableRight="@drawable/baseline_navigate_next_24"
+            android:text="Profil Ayarları"
+            android:textAlignment="textStart"
+            android:textColor="@color/onSurface"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+        </Button>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="2"
+            android:background="#A6A6A6"
+            app:layout_constraintBottom_toBottomOf="@+id/buttonAccountSettings"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonAccountSettings">
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/buttonSignOut"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="@color/transparent"
+            android:drawableLeft="@drawable/icon_logout"
+            android:drawableRight="@drawable/baseline_navigate_next_24"
+            android:text="Çıkış Yap"
+            android:textAlignment="textStart"
+            android:textColor="@color/onSurface"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonAccountSettings"
+            app:layout_constraintVertical_bias="0.0">
+
+        </Button>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="2"
+            android:background="#A6A6A6"
+            app:layout_constraintBottom_toBottomOf="@+id/buttonSignOut"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonAccountSettings"
+            app:layout_constraintVertical_bias="1.0">
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/buttonContact"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="@color/transparent"
+            android:drawableLeft="@drawable/icon_contact"
+            android:drawableRight="@drawable/baseline_navigate_next_24"
+            android:text="İletişim"
+            android:textAlignment="textStart"
+            android:textColor="@color/onSurface"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonSignOut"
+            app:layout_constraintVertical_bias="0.0">
+
+        </Button>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="2"
+            android:background="#A6A6A6"
+            app:layout_constraintBottom_toBottomOf="@+id/buttonContact"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonAccountSettings"
+            app:layout_constraintVertical_bias="1.0">
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/buttonHelp"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="@color/transparent"
+            android:drawableLeft="@drawable/icon_help"
+            android:drawableRight="@drawable/baseline_navigate_next_24"
+            android:text="Yardım"
+            android:textAlignment="textStart"
+            android:textColor="@color/onSurface"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonContact"
+            app:layout_constraintVertical_bias="0.0">
+
+        </Button>
+
+        <LinearLayout
+            android:id="@+id/linearLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/shape_bottom_navigation"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <ImageButton
+                android:id="@+id/homeActivityButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="3"
+                android:background="?android:selectableItemBackground"
+                android:src="@drawable/icon_home_outlined_white">
+
+            </ImageButton>
+
+            <ImageButton
+                android:id="@+id/myDevicesActivityButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="3"
+                android:background="?android:selectableItemBackground"
+                android:src="@drawable/icon_squares_outlined_white">
+
+            </ImageButton>
+
+            <ImageButton
+                android:id="@+id/storeActivityButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="3"
+                android:background="?android:selectableItemBackground"
+                android:src="@drawable/icon_store_outlined_white">
+
+            </ImageButton>
+
+            <Button
+                android:id="@+id/myAccountActivityButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="2"
+                android:backgroundTint="@color/lightest_button"
+                android:drawableLeft="@drawable/icon_user_outlined_black"
+                android:fontFamily="@font/poppinsmedium"
+                android:text="@string/account"
+                android:textColor="@color/black"
+                android:textSize="12sp">
+
+            </Button>
+
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

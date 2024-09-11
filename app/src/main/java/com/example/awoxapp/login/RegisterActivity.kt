@@ -33,6 +33,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.auth
 import com.google.firebase.database.FirebaseDatabase
 import org.intellij.lang.annotations.Pattern
@@ -442,49 +443,57 @@ class RegisterActivity : AppCompatActivity() {
 
     }
 
-    private fun signUp(){
+    private fun signUp() {
         val email = viewOfEmail.text.toString()
         val password = viewOfPassword.text.toString()
+        val displayName = viewOfFirstName.text.toString()
 
-        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this@RegisterActivity){
-            task ->
-            if (task.isSuccessful){
-                auth.currentUser!!.sendEmailVerification().addOnCompleteListener(this){taskVerification ->
-                    if(taskVerification.isSuccessful){
-                        insertUserInfoFireBaseDatabase()
-                        alertDialogSignUpSuccessful()
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val profileUpdate = UserProfileChangeRequest.Builder()
+                        .setDisplayName(displayName)
+                        .build()
+
+                    auth.currentUser!!.updateProfile(profileUpdate)
+                        .addOnCompleteListener { taskProfile ->
+                            if (taskProfile.isSuccessful) {
+                                auth.currentUser!!.sendEmailVerification()
+                                    .addOnCompleteListener(this) { taskVerification ->
+                                        if (taskVerification.isSuccessful) {
+                                            alertDialogSignUpSuccessful()
 
 
-                    }else{
+                                        } else {
 
-                        Toast.makeText(this, "SignUp failed" + task.exception!!.message, Toast.LENGTH_LONG).show()
+                                            Toast.makeText(
+                                                this,
+                                                "SignUp failed" + task.exception!!.message,
+                                                Toast.LENGTH_LONG
+                                            ).show()
 
-                    }
+                                        }
+                                    }
 
+
+                            } else {
+                                Toast.makeText(
+                                    this,
+                                    "SignUp failed" + task.exception!!.message,
+                                    Toast.LENGTH_LONG
+                                ).show()
+
+
+                            }
+                        }
+                } else {
+                    Toast.makeText(
+                        this,
+                        "SignUp failed" + task.exception!!.message,
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
-            }else{
-                Toast.makeText(this, "SignUp failed" + task.exception!!.message, Toast.LENGTH_LONG).show()
-
-
             }
-        }
-
-//        thread{
-//            Log.d("THREAD","thread")
-//            while (true){
-//                if (auth.currentUser!!.isEmailVerified){
-//                    runOnUiThread {
-//                        Log.d("THREAD","verified")
-//                        startActivity(Intent(this@RegisterActivity, AddDeviceActivity::class.java))
-//                    }
-//
-//                    Thread.sleep(500)
-//
-//                    break;
-//                }
-//            }
-//        }
-
     }
 
 

@@ -9,14 +9,32 @@
     android:id="@+id/main"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/onSurfaceLight"
+    android:background="@color/white"
     tools:context=".detailedDevicesActivity.ActivityUsingGuide">
 
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="339dp"
+        android:background="?android:selectableItemBackground"
+        android:contentDescription="@string/content_description_back_button"
+        android:src="@drawable/icon_arrow_back_onsurface"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.042"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.037" />
 
     <com.github.barteksc.pdfviewer.PDFView
         android:id="@+id/pdfview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="75dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

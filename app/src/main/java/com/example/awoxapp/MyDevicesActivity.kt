@@ -1,7 +1,6 @@
 package com.example.awoxapp
 
 import android.content.Intent
-import android.icu.text.Transliterator.Position
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -10,21 +9,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.awoxapp.Repository.database.DevicesDataBase
-import com.example.awoxapp.Repository.entity.Devices
-import com.example.awoxapp.Repository.repository.DevicesViewModel
 import com.example.awoxapp.adapter.RecyclerViewAdapter
 import com.example.awoxapp.data.DeviceList
-import com.example.awoxapp.databinding.ActivityMainBinding
 import com.example.awoxapp.databinding.ActivityMyDevicesBinding
-import com.example.awoxapp.login.RegisterActivity
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.example.awoxapp.profile.userProfileActivity
 import kotlin.concurrent.thread
 
 
@@ -230,6 +221,12 @@ class MyDevicesActivity : AppCompatActivity(){
         mBinding.storeActivityButton.setOnClickListener{startActivity(intent)}
     }
 
+    private fun navigationBottomProfileButtonClicked()
+    {
+        val intent = Intent(this, userProfileActivity::class.java)
+        mBinding.myAccountActivityButton.setOnClickListener { startActivity(intent) }
+    }
+
     private fun initialize() {
 
         initDB()
@@ -240,6 +237,7 @@ class MyDevicesActivity : AppCompatActivity(){
 
         navigationBottomHomeClicked()
         navigationBottomStoreButtonClicked()
+        navigationBottomProfileButtonClicked()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

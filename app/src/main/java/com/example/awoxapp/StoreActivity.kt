@@ -3,22 +3,14 @@ package com.example.awoxapp
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
-import com.example.awoxapp.adapter.ListAdapter
-import com.example.awoxapp.data.DevicesListData
-import com.example.awoxapp.databinding.ActivityOtherDevicesBinding
 import com.example.awoxapp.databinding.ActivityStoreBinding
-import com.example.awoxapp.login.LoginActivity
-import com.example.awoxapp.login.RegisterActivity
+import com.example.awoxapp.profile.userProfileActivity
 import com.example.awoxapp.storeFragments.FragmentStoreHeaters
 import com.example.awoxapp.storeFragments.FragmentStoreSmallAppliances
 import com.example.awoxapp.storeFragments.FragmentStoreTV
 import com.example.awoxapp.storeFragments.FragmentStoreWhiteGoods
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class StoreActivity : AppCompatActivity() {
@@ -56,6 +48,13 @@ class StoreActivity : AppCompatActivity() {
         mBinding.myDevicesActivityButton.setOnClickListener{startActivity(intent)}
     }
 
+
+    private fun navigateBottomProfileButtonClicked()
+    {
+        val intent = Intent(this, userProfileActivity::class.java)
+        mBinding.myAccountActivityButton.setOnClickListener { startActivity(intent) }
+    }
+
     private fun initialize() {
 
         initBinding()
@@ -68,6 +67,7 @@ class StoreActivity : AppCompatActivity() {
 
         navigationBottomHomeClicked()
         navigationBottomMyDevicesButtonClicked()
+        navigateBottomProfileButtonClicked()
 
 
 

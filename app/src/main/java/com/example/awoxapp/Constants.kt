@@ -6,4 +6,7 @@ object Constants {
     const val URL_WHITE_GOODS = "https://www.awox.com.tr/Beyaz-Esya-Modelleri"
     const val URL_HEATERS = "https://www.awox.com.tr/en/Isitici-sogutucu-modelleri"
 
+    const val URL_CONTACT = "https://www.awox.com.tr/iletisim.aspx"
+    const val URL_HELP = "https://www.awox.com.tr/musteri-hizmetleri"
+
 }
