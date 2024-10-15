@@ -13,9 +13,16 @@ import com.example.awoxapp.adapter.RecyclerViewAdapterMain
 import com.example.awoxapp.data.DeviceList
 import com.example.awoxapp.databinding.ActivityMainBinding
 import com.example.awoxapp.profile.userProfileActivity
+import com.example.awoxapp.retrofit.ApiService
+import com.example.awoxapp.retrofit.Categories
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 class MainActivity : AppCompatActivity(){
@@ -265,6 +272,36 @@ class MainActivity : AppCompatActivity(){
     {
         val intent = Intent(this, userProfileActivity::class.java)
         mBinding.myAccountActivityButton.setOnClickListener { startActivity(intent) }
+    }
+
+    private fun reverse(str:String) {
+
+        str.reversed()
+
+    }
+
+    private fun retrofit(){
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(Util.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val api = retrofit.create(ApiService::class.java)
+
+        api.fetchCategories().enqueue(object : Callback<List<Categories>>{
+            override fun onFailure(call: Call<List<Categories>>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onResponse(
+                call: Call<List<Categories>>,
+                response: Response<List<Categories>>
+            ) {
+                TODO("Not yet implemented")
+            }
+        })
+
     }
 
     private fun initialize() {

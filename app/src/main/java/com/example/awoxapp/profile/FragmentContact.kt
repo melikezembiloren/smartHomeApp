@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import androidx.databinding.DataBindingUtil
-import com.example.awoxapp.Constants
 import com.example.awoxapp.R
+import com.example.awoxapp.Util
 import com.example.awoxapp.databinding.FragmentContactBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -19,7 +19,7 @@ class FragmentContact: BottomSheetDialogFragment() {
     private fun showWebView(){
 
        val webView: WebView =  mBinding.webViewAwoxContact
-        webView.loadUrl(Constants.URL_CONTACT)
+        webView.loadUrl(Util.URL_CONTACT)
     }
 
     private fun initialize(){

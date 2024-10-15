@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import androidx.databinding.DataBindingUtil
-import com.example.awoxapp.Constants
 import com.example.awoxapp.R
+import com.example.awoxapp.Util
 import com.example.awoxapp.databinding.FragmentStoreSmallAppliancesBinding
 import com.example.awoxapp.databinding.FragmentStoreTVBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -21,7 +21,7 @@ class FragmentStoreSmallAppliances : BottomSheetDialogFragment() {
     private fun showWebView(){
 
        val webView: WebView =  mBinding.webViewSmallAppliancesStore
-        webView.loadUrl(Constants.URL_SMALL_APPLIANCES)
+        webView.loadUrl(Util.URL_SMALL_APPLIANCES)
     }
 
     private fun initialize(){

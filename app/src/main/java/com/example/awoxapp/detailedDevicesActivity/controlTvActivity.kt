@@ -134,6 +134,7 @@ class controlTvActivity : AppCompatActivity() {
         val bottomNavigationView = mBinding.bottomNavigation
 
 
+
         bottomNavigationView.setOnItemSelectedListener {item: MenuItem? ->
 
             when (item!!.itemId) {
@@ -157,6 +158,7 @@ class controlTvActivity : AppCompatActivity() {
 
                 R.id.bottom2 -> {
                     finish()
+
 
                     val intent = Intent(this, controlTvTouchpadActivity::class.java).apply {
                         putExtra("DEVICE_NAME", mBinding.title)

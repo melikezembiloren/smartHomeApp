@@ -149,6 +149,10 @@ class TvSettingsActivity : AppCompatActivity() {
         val bottomNavigationView = mBinding.bottomNavigation
 
 
+        bottomNavigationView.selectedItemId = R.id.bottom3
+
+
+
 
         bottomNavigationView.setOnItemSelectedListener {item: MenuItem? ->
 

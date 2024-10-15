@@ -78,6 +78,7 @@ dependencies {
     val glide_version = "4.16.0"
     val firebase_version = "33.1.2"
     val nav_version = "2.7.7"
+    val retrofit_version = "2.9.0"
 
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:$desugaring_version")
 
@@ -99,6 +100,9 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.0")
 
     implementation("com.github.mhiew:android-pdf-viewer:3.2.0-beta.1")
+
+    implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofit_version")
 
 
 }

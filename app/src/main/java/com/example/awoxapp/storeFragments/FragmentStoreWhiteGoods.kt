@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import androidx.databinding.DataBindingUtil
-import com.example.awoxapp.Constants
 import com.example.awoxapp.R
+import com.example.awoxapp.Util
 import com.example.awoxapp.databinding.FragmentStoreTVBinding
 import com.example.awoxapp.databinding.FragmentStoreWhiteGoodsBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -21,7 +21,7 @@ class FragmentStoreWhiteGoods : BottomSheetDialogFragment() {
     private fun showWebView(){
 
        val webView: WebView =  mBinding.webViewWhiteGoodsStore
-        webView.loadUrl(Constants.URL_WHITE_GOODS)
+        webView.loadUrl(Util.URL_WHITE_GOODS)
     }
 
     private fun initialize(){

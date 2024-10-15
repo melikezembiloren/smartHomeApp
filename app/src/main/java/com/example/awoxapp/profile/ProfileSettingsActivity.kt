@@ -72,15 +72,12 @@ class ProfileSettingsActivity : AppCompatActivity() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
+    private fun updatePasswordButtonClickListener(){
 
-        mAuth.currentUser!!.displayName.toString()
+        mBinding.buttonAccountSettingsUpdatePassword.setOnClickListener {
+            startActivity(Intent(this, UpdatePasswordActivity::class.java))
+        }
     }
-
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,6 +92,7 @@ class ProfileSettingsActivity : AppCompatActivity() {
 
         Toast.makeText(this, mAuth.currentUser!!.email, Toast.LENGTH_LONG).show()
 
+        updatePasswordButtonClickListener()
         backButtonClicked()
 
 

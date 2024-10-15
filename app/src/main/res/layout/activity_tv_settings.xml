@@ -24,7 +24,7 @@
             android:layout_height="38dp"
             android:layout_marginStart="25dp"
             android:background="?android:selectableItemBackground"
-            android:src="@drawable/icon_arrow_back"
+            android:src="@drawable/icon_arrow_back_onsurface"
             app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintEnd_toStartOf="@+id/textView"
             app:layout_constraintHorizontal_bias="0.02"
